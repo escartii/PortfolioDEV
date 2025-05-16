@@ -1,3 +1,4 @@
+
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -95,12 +96,14 @@ export function DotPattern({
         Math.ceil(dimensions.width / width) *
         Math.ceil(dimensions.height / height),
     },
-    (_, i) => {
-      const col = i % Math.ceil(dimensions.width / width);
-      const row = Math.floor(i / Math.ceil(dimensions.width / width));
+    (_, index) => {
+      const col = index % Math.ceil(dimensions.width / width);
+      const row = Math.floor(index / Math.ceil(dimensions.width / width));
+      const dotX = col * width + cx;
+      const dotY = row * height + cy;
       return {
-        x: col * width + cx,
-        y: row * height + cy,
+        x: dotX,
+        y: dotY,
         delay: Math.random() * 5,
         duration: Math.random() * 3 + 2,
       };
@@ -123,7 +126,7 @@ export function DotPattern({
           <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
         </radialGradient>
       </defs>
-      {dots.map((dot, index) => (
+      {dots.map((dot) => (
         <motion.circle
           key={`${dot.x}-${dot.y}`}
           cx={dot.x}
