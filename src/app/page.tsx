@@ -368,6 +368,7 @@ export default function HomePage() {
 
   useEffect(() => {
     setMounted(true);
+    document.title = 'Portfolio Dev';
   }, []);
 
   const toggleTheme = () => {
@@ -758,14 +759,14 @@ export default function HomePage() {
                 {/* Tweet Content */}
                 <div className="mb-4">
                   <p className={cn("text-base leading-relaxed", themeClasses.text)}>
-                    Álvaro transformó completamente nuestra plataforma. Su experiencia en React y su atención al detalle son excepcionales. 
+                    Álvaro transformó completamente nuestra plataforma. Su expertise en React y su atención al detalle son excepcionales. 
                     <span className="text-cyan-500">#DesarrolloWeb #React #Portfolio</span>
                   </p>
                 </div>
                 
                 {/* Tweet Metadata */}
                 <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span>2:47 PM • May 9, 2025</span>
+                  <span>2:47 PM • Nov 15, 2024</span>
                   <div className="flex items-center space-x-6">
                     <div className="flex items-center space-x-1">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
