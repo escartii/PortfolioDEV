@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { VelocityScroll } from "@/components/magicui/scroll-based-velocity";
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { Home, Settings, Globe, User, Mail, Moon, Sun, Code, Briefcase, Award, Github, Linkedin, Twitter, Database, Server, Cloud, Cpu, Shield } from "lucide-react";
+import { Home, Settings, Globe, User, Mail, Moon, Sun, Code, Briefcase, Award, Github, Linkedin, Twitter, Database, Cloud, Cpu, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 import { Marquee } from "@/components/magicui/marquee";
@@ -14,7 +14,6 @@ import { Meteors } from "@/components/magicui/meteors";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
-import Image from 'next/image';
 
 // ClientTweetCard component
 const ClientTweetCard = ({ className }: { className?: string }) => {
