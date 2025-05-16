@@ -842,49 +842,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA Final */}
-      <section className={cn(
-        "py-20 px-4 relative",
-        isDark ? "bg-gradient-to-t from-blue-900/20 to-transparent" : "bg-gradient-to-t from-blue-50 to-transparent"
-      )}>
-        <div className="max-w-4xl mx-auto text-center">
-          <BlurFade delay={0.25} inView>
-            <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-              ¿Listo para <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">Colaborar</span>?
-            </h2>
-          </BlurFade>
-          <BlurFade delay={0.5} inView>
-            <p className={cn("text-lg mb-12 max-w-3xl mx-auto font-medium", themeClasses.textLight)}>
-              Convirtamos tu visión en realidad. Contacta conmigo para discutir tu próximo proyecto 
-              y descubrir cómo podemos hacer algo increíble juntos 💡
-            </p>
-          </BlurFade>
-          <BlurFade delay={0.75} inView>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className={cn(
-                  "px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105",
-                  isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
-                )}
-              >
-                Iniciar Proyecto
-              </button>
-              <a 
-                href="/cv-alvaro-escarti.pdf" 
-                download="CV-Alvaro-Escarti.pdf"
-                className={cn(
-                  "px-8 py-4 rounded-full font-semibold transition-all duration-300 text-lg hover:scale-105 inline-block text-center",
-                  isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
-                )}
-              >
-                Descargar CV
-              </a>
-            </div>
-          </BlurFade>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className={cn("py-12 px-4 border-t", themeClasses.border)}>
         <div className="max-w-4xl mx-auto text-center">
