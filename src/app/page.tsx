@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { VelocityScroll } from "@/components/magicui/scroll-based-velocity";
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { Home, Settings, Globe, User, Mail, Moon, Sun, Code, Briefcase, Award, Github, Linkedin, Twitter, Database, Server, Smartphone, Cloud, Cpu, Shield,} from "lucide-react";
+import { Home, Settings, Globe, User, Mail, Moon, Sun, Code, Briefcase, Award, Github, Linkedin, Twitter, Database, Server, Cloud, Cpu, Shield } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 import { Marquee } from "@/components/magicui/marquee";
@@ -14,9 +14,10 @@ import { Meteors } from "@/components/magicui/meteors";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
+import Image from 'next/image';
 
 // ClientTweetCard component
-const ClientTweetCard = ({ id, className }: { id: string, className?: string }) => {
+const ClientTweetCard = ({ className }: { className?: string }) => {
   return (
     <div className={cn(
       "p-6 rounded-xl border bg-white/50 dark:bg-gray-800/50 backdrop-blur-md",
@@ -25,9 +26,11 @@ const ClientTweetCard = ({ id, className }: { id: string, className?: string }) 
     )}>
       <div className="flex items-start space-x-4">
         <div className="flex-shrink-0">
-          <img 
+          <Image 
             src="https://api.dicebear.com/6.x/avataaars/svg?seed=Felix" 
             alt="Profile avatar" 
+            width={40}
+            height={40}
             className="w-10 h-10 rounded-full object-cover"
           />
         </div>
@@ -39,7 +42,7 @@ const ClientTweetCard = ({ id, className }: { id: string, className?: string }) 
             </svg>
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-            "Trabajar con Álvaro fue una experiencia excepcional. Entregó nuestro proyecto a tiempo, con alta calidad y excelente comunicación durante todo el proceso."
+            &ldquo;Trabajar con Álvaro fue una experiencia excepcional. Entregó nuestro proyecto a tiempo, con alta calidad y excelente comunicación durante todo el proceso.&rdquo;
           </p>
           <div className="flex items-center mt-4 text-sm text-blue-500">
             <span className="font-medium">mayo 15, 2023</span>
@@ -79,7 +82,7 @@ const TechIcons = {
   ),
   bash: () => (
     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
-<path fill="#ededed" fill-rule="evenodd" d="M22.903,3.286c0.679-0.381,1.515-0.381,2.193,0 c3.355,1.883,13.451,7.551,16.807,9.434C42.582,13.1,43,13.804,43,14.566c0,3.766,0,15.101,0,18.867 c0,0.762-0.418,1.466-1.097,1.847c-3.355,1.883-13.451,7.551-16.807,9.434c-0.679,0.381-1.515,0.381-2.193,0 c-3.355-1.883-13.451-7.551-16.807-9.434C5.418,34.899,5,34.196,5,33.434c0-3.766,0-15.101,0-18.867 c0-0.762,0.418-1.466,1.097-1.847C9.451,10.837,19.549,5.169,22.903,3.286z" clip-rule="evenodd"></path><path fill="#434345" d="M23.987,46.221c-1.085,0-2.171-0.252-3.165-0.757c-2.22-1.127-5.118-2.899-7.921-4.613 c-1.973-1.206-3.836-2.346-5.297-3.157C5.381,36.458,4,34.113,4,31.572V16.627c0-2.59,1.417-4.955,3.699-6.173 c3.733-1.989,9.717-5.234,12.878-7.01h0c2.11-1.184,4.733-1.184,6.844,0c3.576,2.007,10.369,6.064,14.252,8.513 C43.13,12.874,44,14.453,44,16.182V32c0,2.4-0.859,4.048-2.553,4.895c-0.944,0.531-2.628,1.576-4.578,2.787 c-3.032,1.882-6.806,4.225-9.564,5.705C26.27,45.942,25.128,46.221,23.987,46.221z M21.556,5.188 C18.384,6.97,12.382,10.226,8.64,12.22C7.012,13.088,6,14.776,6,16.627v14.945c0,1.814,0.987,3.49,2.576,4.373 c1.498,0.832,3.378,1.981,5.369,3.199c2.77,1.693,5.634,3.445,7.783,4.536c1.458,0.739,3.188,0.717,4.631-0.056 c2.703-1.451,6.447-3.775,9.456-5.643c1.97-1.223,3.671-2.279,4.696-2.854C41.835,34.464,42,33.109,42,32V16.182 c0-1.037-0.521-1.983-1.392-2.532c-3.862-2.435-10.613-6.467-14.165-8.461C24.913,4.331,23.086,4.331,21.556,5.188L21.556,5.188z"></path><path fill="#434345" d="M22.977,41.654l-0.057-13.438c-0.011-2.594,1.413-4.981,3.701-6.204l12.01-6.416 c1.998-1.068,4.414,0.38,4.414,2.646v14.73c0,1.041-0.54,2.008-1.426,2.554l-14.068,8.668 C25.557,45.424,22.987,43.996,22.977,41.654z"></path><path fill="#ededed" d="M28.799,26.274c0.123-0.063,0.225,0.014,0.227,0.176l0.013,1.32 c0.552-0.219,1.032-0.278,1.467-0.177c0.095,0.024,0.136,0.153,0.098,0.306l-0.291,1.169c-0.024,0.089-0.072,0.178-0.132,0.233 c-0.026,0.025-0.052,0.044-0.077,0.057c-0.04,0.02-0.078,0.026-0.114,0.019c-0.199-0.045-0.671-0.148-1.413,0.228 c-0.778,0.395-1.051,1.071-1.046,1.573c0.007,0.601,0.315,0.783,1.377,0.802c1.416,0.023,2.027,0.643,2.042,2.067 c0.016,1.402-0.733,2.905-1.876,3.826l0.025,1.308c0.001,0.157-0.1,0.338-0.225,0.4l-0.775,0.445 c-0.123,0.063-0.225-0.014-0.227-0.172l-0.013-1.286c-0.664,0.276-1.334,0.342-1.763,0.17c-0.082-0.032-0.117-0.152-0.084-0.288 l0.28-1.181c0.022-0.092,0.071-0.186,0.138-0.246c0.023-0.023,0.048-0.04,0.072-0.053c0.044-0.022,0.087-0.027,0.124-0.013 c0.462,0.155,1.053,0.082,1.622-0.206c0.722-0.365,1.206-1.102,1.198-1.834c-0.007-0.664-0.366-0.939-1.241-0.946 c-1.113,0.002-2.151-0.216-2.168-1.855c-0.014-1.35,0.688-2.753,1.799-3.641l-0.013-1.319c-0.001-0.162,0.098-0.34,0.225-0.405 L28.799,26.274z"></path><path fill="#4da925" d="M37.226,34.857l-3.704,2.185c-0.109,0.061-0.244-0.019-0.244-0.143v-1.252 c0-0.113,0.061-0.217,0.16-0.273l3.704-2.185c0.111-0.061,0.246,0.019,0.246,0.145v1.248 C37.388,34.697,37.326,34.801,37.226,34.857"></path>
+<path fill="#ededed" fillRule="evenodd" d="M22.903,3.286c0.679-0.381,1.515-0.381,2.193,0 c3.355,1.883,13.451,7.551,16.807,9.434C42.582,13.1,43,13.804,43,14.566c0,3.766,0,15.101,0,18.867 c0,0.762-0.418,1.466-1.097,1.847c-3.355,1.883-13.451,7.551-16.807,9.434c-0.679,0.381-1.515,0.381-2.193,0 c-3.355-1.883-13.451-7.551-16.807-9.434C5.418,34.899,5,34.196,5,33.434c0-3.766,0-15.101,0-18.867 c0-0.762,0.418-1.466,1.097-1.847C9.451,10.837,19.549,5.169,22.903,3.286z" clipRule="evenodd"></path><path fill="#434345" d="M23.987,46.221c-1.085,0-2.171-0.252-3.165-0.757c-2.22-1.127-5.118-2.899-7.921-4.613 c-1.973-1.206-3.836-2.346-5.297-3.157C5.381,36.458,4,34.113,4,31.572V16.627c0-2.59,1.417-4.955,3.699-6.173 c3.733-1.989,9.717-5.234,12.878-7.01h0c2.11-1.184,4.733-1.184,6.844,0c3.576,2.007,10.369,6.064,14.252,8.513 C43.13,12.874,44,14.453,44,16.182V32c0,2.4-0.859,4.048-2.553,4.895c-0.944,0.531-2.628,1.576-4.578,2.787 c-3.032,1.882-6.806,4.225-9.564,5.705C26.27,45.942,25.128,46.221,23.987,46.221z M21.556,5.188 C18.384,6.97,12.382,10.226,8.64,12.22C7.012,13.088,6,14.776,6,16.627v14.945c0,1.814,0.987,3.49,2.576,4.373 c1.498,0.832,3.378,1.981,5.369,3.199c2.77,1.693,5.634,3.445,7.783,4.536c1.458,0.739,3.188,0.717,4.631-0.056 c2.703-1.451,6.447-3.775,9.456-5.643c1.97-1.223,3.671-2.279,4.696-2.854C41.835,34.464,42,33.109,42,32V16.182 c0-1.037-0.521-1.983-1.392-2.532c-3.862-2.435-10.613-6.467-14.165-8.461C24.913,4.331,23.086,4.331,21.556,5.188L21.556,5.188z"></path><path fill="#434345" d="M22.977,41.654l-0.057-13.438c-0.011-2.594,1.413-4.981,3.701-6.204l12.01-6.416 c1.998-1.068,4.414,0.38,4.414,2.646v14.73c0,1.041-0.54,2.008-1.426,2.554l-14.068,8.668 C25.557,45.424,22.987,43.996,22.977,41.654z"></path><path fill="#ededed" d="M28.799,26.274c0.123-0.063,0.225,0.014,0.227,0.176l0.013,1.32 c0.552-0.219,1.032-0.278,1.467-0.177c0.095,0.024,0.136,0.153,0.098,0.306l-0.291,1.169c-0.024,0.089-0.072,0.178-0.132,0.233 c-0.026,0.025-0.052,0.044-0.077,0.057c-0.04,0.02-0.078,0.026-0.114,0.019c-0.199-0.045-0.671-0.148-1.413,0.228 c-0.778,0.395-1.051,1.071-1.046,1.573c0.007,0.601,0.315,0.783,1.377,0.802c1.416,0.023,2.027,0.643,2.042,2.067 c0.016,1.402-0.733,2.905-1.876,3.826l0.025,1.308c0.001,0.157-0.1,0.338-0.225,0.4l-0.775,0.445 c-0.123,0.063-0.225-0.014-0.227-0.172l-0.013-1.286c-0.664,0.276-1.334,0.342-1.763,0.17c-0.082-0.032-0.117-0.152-0.084-0.288 l0.28-1.181c0.022-0.092,0.071-0.186,0.138-0.246c0.023-0.023,0.048-0.04,0.072-0.053c0.044-0.022,0.087-0.027,0.124-0.013 c0.462,0.155,1.053,0.082,1.622-0.206c0.722-0.365,1.206-1.102,1.198-1.834c-0.007-0.664-0.366-0.939-1.241-0.946 c-1.113,0.002-2.151-0.216-2.168-1.855c-0.014-1.35,0.688-2.753,1.799-3.641l-0.013-1.319c-0.001-0.162,0.098-0.34,0.225-0.405 L28.799,26.274z"></path><path fill="#4da925" d="M37.226,34.857l-3.704,2.185c-0.109,0.061-0.244-0.019-0.244-0.143v-1.252 c0-0.113,0.061-0.217,0.16-0.273l3.704-2.185c0.111-0.061,0.246,0.019,0.246,0.145v1.248 C37.388,34.697,37.326,34.801,37.226,34.857"></path>
 </svg>
   ),
   docker: () => (
@@ -98,6 +101,7 @@ const TechIcons = {
     </svg>
   ),
 };
+
 const projects = [
   { 
     name: "SaaS Dashboard", 
@@ -129,15 +133,6 @@ const projects = [
     desc: "Decentralized application with smart contracts and blockchain integration.",
     status: "En desarrollo"
   },
-];
-
-const skills = [
-  { name: "React", level: 95, icon: Code },
-  { name: "Node.js", level: 90, icon: Server },
-  { name: "TypeScript", level: 88, icon: Code },
-  { name: "Python", level: 85, icon: Cpu },
-  { name: "Docker", level: 80, icon: Cloud },
-  { name: "AWS", level: 82, icon: Cloud },
 ];
 
 // Enhanced features for BentoGrid with Magic UI components
@@ -218,7 +213,7 @@ const features = [
   },
 ];
 
-function BentoDemo({ isDark }: { isDark: boolean }) {
+function BentoDemo() {
   return (
     <BentoGrid>
       {features.map((feature, idx) => (
@@ -228,7 +223,7 @@ function BentoDemo({ isDark }: { isDark: boolean }) {
   );
 }
 
-function ProjectsMarquee({ isDark }: { isDark: boolean }) {
+function ProjectsMarquee() {
   return (
     <Marquee
       pauseOnHover
@@ -239,18 +234,13 @@ function ProjectsMarquee({ isDark }: { isDark: boolean }) {
           key={idx}
           className={cn(
             "relative w-72 cursor-pointer overflow-hidden rounded-xl border p-6 mx-4",
-            isDark 
-              ? "border-gray-700 bg-gray-800/50 hover:bg-gray-800/70"
-              : "border-gray-200 bg-white/50 hover:bg-white/70 shadow-lg",
+            "border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 hover:bg-white/70 dark:hover:bg-gray-800/70 shadow-lg",
             "transform-gpu transition-all duration-300 ease-out hover:scale-105",
           )}
         >
           <div className="flex flex-col">
             <div className="flex justify-between items-start mb-3">
-              <figcaption className={cn(
-                "text-lg font-bold",
-                isDark ? "text-white" : "text-gray-900"
-              )}>{project.name}</figcaption>
+              <figcaption className="text-lg font-bold text-gray-900 dark:text-white">{project.name}</figcaption>
               <span className={cn(
                 "text-xs px-2 py-1 rounded-full",
                 project.status === "Completado" 
@@ -259,10 +249,7 @@ function ProjectsMarquee({ isDark }: { isDark: boolean }) {
               )}>{project.status}</span>
             </div>
             <p className="text-sm mb-3 text-blue-600 font-medium">{project.tech}</p>
-            <blockquote className={cn(
-              "text-sm leading-relaxed",
-              isDark ? "text-gray-300" : "text-gray-600"
-            )}>{project.desc}</blockquote>
+            <blockquote className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">{project.desc}</blockquote>
           </div>
         </figure>
       ))}
@@ -292,7 +279,7 @@ const Circle = React.forwardRef<HTMLDivElement, CircleProps>(({ className, child
 
 Circle.displayName = "Circle";
 
-function TechSkillsBeam({ isDark }: { isDark: boolean }) {
+function TechSkillsBeam() {
   const containerRef = React.useRef(null);
   const centerRef = React.useRef(null);
   const reactRef = React.useRef(null);
@@ -547,7 +534,7 @@ export default function HomePage() {
               isDark ? "border-gray-700 bg-gray-800/50" : "border-gray-200 bg-white/50 shadow-lg"
             )}>
               <h3 className="text-xl font-bold mb-6 text-center">Habilidades Técnicas</h3>
-              <TechSkillsBeam isDark={isDark} />
+              <TechSkillsBeam />
             </div>
           </BlurFade>
         </div>
@@ -712,7 +699,7 @@ export default function HomePage() {
             </p>
           </BlurFade>
         </div>
-        <BentoDemo isDark={isDark} />
+        <BentoDemo />
       </section>
 
       {/* Projects Section */}
@@ -730,7 +717,7 @@ export default function HomePage() {
             </p>
           </BlurFade>
           <div className="relative h-80 overflow-hidden">
-            <ProjectsMarquee isDark={isDark} />
+            <ProjectsMarquee />
           </div>
         </div>
       </section>
@@ -751,8 +738,8 @@ export default function HomePage() {
           </BlurFade>
           <BlurFade delay={0.75} inView>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              <ClientTweetCard id="1675849118445436929" className="shadow-2xl" />
-              <ClientTweetCard id="1675849118445436929" className="shadow-2xl" />
+              <ClientTweetCard className="shadow-2xl" />
+              <ClientTweetCard className="shadow-2xl" />
             </div>
           </BlurFade>
         </div>
