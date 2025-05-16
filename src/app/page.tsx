@@ -3,23 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { VelocityScroll } from "@/components/magicui/scroll-based-velocity";
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { Home, Settings, Search, Zap, Globe, User, Mail, Moon, Sun, Code, Briefcase, Star, Award, Github, Linkedin, Twitter, Database, Server, Smartphone, Cloud, Cpu, Shield, TrendingUp, Users, Target, Clock } from "lucide-react";
-import { CalendarIcon, FileTextIcon } from "@radix-ui/react-icons";
-import { BellIcon, Share2Icon } from "lucide-react";
+import { Home, Settings, Globe, User, Mail, Moon, Sun, Code, Briefcase, Award, Github, Linkedin, Twitter, Database, Server, Smartphone, Cloud, Cpu, Shield,} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 import { Marquee } from "@/components/magicui/marquee";
 import { Globe as GlobeComponent } from "@/components/magicui/globe";
 import { AuroraText } from "@/components/magicui/aurora-text";
-import { PulsatingButton } from "@/components/magicui/pulsating-button";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { Meteors } from "@/components/magicui/meteors";
 import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
-import { Particles } from "@/components/magicui/particles";
-import { cn as classNames } from "@/lib/utils";
-import { TweetCard } from "@/components/magicui/tweet-card";
 
 // ClientTweetCard component
 const ClientTweetCard = ({ id, className }: { id: string, className?: string }) => {
