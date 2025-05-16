@@ -15,35 +15,6 @@ import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 
-// ClientTweetCard component
-const ClientTweetCard = ({ className }: { className?: string }) => {
-  return (
-    <div className={cn(
-      "p-6 rounded-xl border bg-white/50 dark:bg-gray-800/50 backdrop-blur-md",
-      "border-gray-200 dark:border-gray-700 transition-all duration-300",
-      className
-    )}>
-      <div className="flex items-start space-x-4">
-        <div className="flex-shrink-0">
-        </div>
-        <div className="flex-1">
-          <div className="flex items-center justify-between">
-            <h3 className="font-bold">Javier Puertas</h3>
-            <svg className="h-5 w-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-            </svg>
-          </div>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-            &ldquo;Trabajar con Álvaro fue una experiencia excepcional. Entregó nuestro proyecto a tiempo, con alta calidad y excelente comunicación durante todo el proceso.&rdquo;
-          </p>
-          <div className="flex items-center mt-4 text-sm text-blue-500">
-            <span className="font-medium">mayo 15, 2023</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // Programming Tech Icons
 const TechIcons = {
@@ -727,12 +698,6 @@ export default function HomePage() {
               Testimonios reales de clientes satisfechos que confían en mi trabajo 
               para sus proyectos más importantes 🌟
             </p>
-          </BlurFade>
-          <BlurFade delay={0.75} inView>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              <ClientTweetCard className="shadow-2xl" />
-              <ClientTweetCard className="shadow-2xl" />
-            </div>
           </BlurFade>
         </div>
       </section>
