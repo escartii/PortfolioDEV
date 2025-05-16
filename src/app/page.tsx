@@ -15,6 +15,18 @@ import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 
+// Navigation helper function
+const scrollToSection = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    const offset = 80; // Account for fixed header
+    const top = element.offsetTop - offset;
+    window.scrollTo({
+      top,
+      behavior: 'smooth',
+    });
+  }
+};
 
 // Programming Tech Icons
 const TechIcons = {
@@ -149,10 +161,6 @@ const features = [
     background: (
       <div className="absolute inset-0 overflow-hidden">
         <GlobeComponent className="absolute -right-10 -top-10 scale-75 opacity-30" />
-        <div className="absolute bottom-4 left-4">
-          <NumberTicker value={30} className="text-4xl font-bold text-cyan-500" />
-          <div className="text-sm text-cyan-500">Países</div>
-        </div>
       </div>
     ),
   },
@@ -408,16 +416,36 @@ export default function HomePage() {
       {/* Header con Dock */}
       <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
         <Dock className={cn("border", themeClasses.dockBg, themeClasses.border)}>
-          <DockIcon><Home className={cn("h-6 w-6", themeClasses.text)} /></DockIcon>
-          <DockIcon><User className={cn("h-6 w-6", themeClasses.text)} /></DockIcon>
-          <DockIcon><Code className={cn("h-6 w-6", themeClasses.text)} /></DockIcon>
-          <DockIcon><Mail className={cn("h-6 w-6", themeClasses.text)} /></DockIcon>
-          <DockIcon><Settings className={cn("h-6 w-6", themeClasses.text)} /></DockIcon>
+          <DockIcon>
+            <button onClick={() => scrollToSection('hero')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
+              <Home className={cn("h-6 w-6", themeClasses.text)} />
+            </button>
+          </DockIcon>
+          <DockIcon>
+            <button onClick={() => scrollToSection('about')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
+              <User className={cn("h-6 w-6", themeClasses.text)} />
+            </button>
+          </DockIcon>
+          <DockIcon>
+            <button onClick={() => scrollToSection('projects')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
+              <Code className={cn("h-6 w-6", themeClasses.text)} />
+            </button>
+          </DockIcon>
+          <DockIcon>
+            <button onClick={() => scrollToSection('contact')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
+              <Mail className={cn("h-6 w-6", themeClasses.text)} />
+            </button>
+          </DockIcon>
+          <DockIcon>
+            <button onClick={() => scrollToSection('services')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
+              <Settings className={cn("h-6 w-6", themeClasses.text)} />
+            </button>
+          </DockIcon>
         </Dock>
       </div>
 
       {/* Hero Section con Meteors */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Meteors number={40} />
         </div>
@@ -450,16 +478,22 @@ export default function HomePage() {
           </BlurFade>
           <BlurFade delay={1} inView>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className={cn(
-                "px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105",
-                isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
-              )}>
+              <button 
+                onClick={() => scrollToSection('projects')}
+                className={cn(
+                  "px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105",
+                  isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
+                )}
+              >
                 Ver Proyectos
               </button>
-              <button className={cn(
-                "px-8 py-4 border rounded-full transition-all duration-300 text-lg font-medium hover:scale-105",
-                isDark ? "border-white/20 hover:bg-white/10" : "border-black/20 hover:bg-black/5"
-              )}>
+              <button 
+                onClick={() => scrollToSection('contact')}
+                className={cn(
+                  "px-8 py-4 border rounded-full transition-all duration-300 text-lg font-medium hover:scale-105",
+                  isDark ? "border-white/20 hover:bg-white/10" : "border-black/20 hover:bg-black/5"
+                )}
+              >
                 Contactar
               </button>
             </div>
@@ -468,7 +502,7 @@ export default function HomePage() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+      <section id="about" className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <BlurFade delay={0.25} inView>
             <div>
@@ -557,13 +591,13 @@ export default function HomePage() {
                 <div className="relative">
                   <div className="flex items-center justify-center mb-4">
                     <NumberTicker 
-                      value={5} 
+                      value={12} 
                       className="text-6xl md:text-7xl font-black bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent"
                     />
                     <span className="text-4xl md:text-5xl font-black text-green-500 ml-1">+</span>
                   </div>
-                  <p className="text-xl font-bold">Años</p>
-                  <p className={cn("text-sm", themeClasses.textMuted)}>Experiencia</p>
+                  <p className="text-xl font-bold">Tecnologías</p>
+                  <p className={cn("text-sm", themeClasses.textMuted)}>Dominadas</p>
                   <div className="w-full h-1 bg-green-500/20 rounded-full mt-4 overflow-hidden">
                     <div className="w-full h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transform -translate-x-full animate-[slideIn_2s_ease-out_forwards]" 
                          style={{ animationDelay: '0.7s' }} />
@@ -648,7 +682,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Grid using BentoDemo */}
-      <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+      <section id="services" className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <BlurFade delay={0.25} inView>
             <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
@@ -666,7 +700,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 px-4">
+      <section id="projects" className="py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <BlurFade delay={0.25} inView>
             <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
@@ -699,41 +733,110 @@ export default function HomePage() {
               para sus proyectos más importantes 🌟
             </p>
           </BlurFade>
+          <BlurFade delay={0.75} inView>
+            <div className="flex justify-center">
+              <div className={cn(
+                "max-w-lg w-full rounded-xl border p-6 transition-all duration-300 hover:scale-105",
+                isDark ? "bg-gray-800/50 border-gray-700" : "bg-white border-gray-200 shadow-lg"
+              )}>
+                {/* Tweet Header */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">CM</span>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg">Carlos Mendez</h4>
+                      <p className={cn("text-sm", themeClasses.textMuted)}>@carlosmendez_dev</p>
+                    </div>
+                  </div>
+                  <svg className="w-6 h-6 text-cyan-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                </div>
+                
+                {/* Tweet Content */}
+                <div className="mb-4">
+                  <p className={cn("text-base leading-relaxed", themeClasses.text)}>
+                    Álvaro transformó completamente nuestra plataforma. Su experiencia en React y su atención al detalle son excepcionales. 
+                    <span className="text-cyan-500">#DesarrolloWeb #React #Portfolio</span>
+                  </p>
+                </div>
+                
+                {/* Tweet Metadata */}
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                    <span>2:47 PM • May 9, 2025</span>
+                  <div className="flex items-center space-x-6">
+                    <div className="flex items-center space-x-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4zM9 6V4h6v2H9zm0 0h6v12H9V6z" />
+                      </svg>
+                      <span>24</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                      </svg>
+                      <span>156</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </BlurFade>
         </div>
       </section>
 
       {/* Social Links */}
-      <section className="py-20 px-4">
+      <section id="contact" className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <BlurFade delay={0.25} inView>
             <h2 className="text-3xl md:text-4xl font-black mb-8 tracking-tight">Conecta Conmigo</h2>
           </BlurFade>
           <BlurFade delay={0.5} inView>
             <div className="flex justify-center gap-6">
-              <button className={cn(
-                "p-4 rounded-full transition-all duration-300 hover:scale-110 border",
-                themeClasses.card
-              )}>
+              <a 
+                href="https://github.com/escartii" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={cn(
+                  "p-4 rounded-full transition-all duration-300 hover:scale-110 border inline-block",
+                  themeClasses.card
+                )}
+              >
                 <Github className="h-8 w-8" />
-              </button>
-              <button className={cn(
-                "p-4 rounded-full transition-all duration-300 hover:scale-110 border",
-                themeClasses.card
-              )}>
+              </a>
+              <a 
+                href="https://www.linkedin.com/in/%C3%A1lvaro-escart%C3%AD-lamolda-91a652277/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={cn(
+                  "p-4 rounded-full transition-all duration-300 hover:scale-110 border inline-block",
+                  themeClasses.card
+                )}
+              >
                 <Linkedin className="h-8 w-8" />
-              </button>
-              <button className={cn(
-                "p-4 rounded-full transition-all duration-300 hover:scale-110 border",
-                themeClasses.card
-              )}>
+              </a>
+              <a 
+                href="https://x.com/escartii" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={cn(
+                  "p-4 rounded-full transition-all duration-300 hover:scale-110 border inline-block",
+                  themeClasses.card
+                )}
+              >
                 <Twitter className="h-8 w-8" />
-              </button>
-              <button className={cn(
-                "p-4 rounded-full transition-all duration-300 hover:scale-110 border",
-                themeClasses.card
-              )}>
+              </a>
+              <a 
+                href="mailto:alvaro@escartii.com" 
+                className={cn(
+                  "p-4 rounded-full transition-all duration-300 hover:scale-110 border inline-block",
+                  themeClasses.card
+                )}
+              >
                 <Mail className="h-8 w-8" />
-              </button>
+              </a>
             </div>
           </BlurFade>
         </div>
@@ -758,18 +861,25 @@ export default function HomePage() {
           </BlurFade>
           <BlurFade delay={0.75} inView>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className={cn(
-                "px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105",
-                isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
-              )}>
+              <button 
+                onClick={() => scrollToSection('contact')}
+                className={cn(
+                  "px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105",
+                  isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
+                )}
+              >
                 Iniciar Proyecto
               </button>
-              <button className={cn(
-                "px-8 py-4 rounded-full font-semibold transition-all duration-300 text-lg hover:scale-105",
-                isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
-              )}>
+              <a 
+                href="/cv-alvaro-escarti.pdf" 
+                download="CV-Alvaro-Escarti.pdf"
+                className={cn(
+                  "px-8 py-4 rounded-full font-semibold transition-all duration-300 text-lg hover:scale-105 inline-block text-center",
+                  isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
+                )}
+              >
                 Descargar CV
-              </button>
+              </a>
             </div>
           </BlurFade>
         </div>
