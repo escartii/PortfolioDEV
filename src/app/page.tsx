@@ -368,7 +368,6 @@ export default function HomePage() {
 
   useEffect(() => {
     setMounted(true);
-    document.title = 'Portfolio Dev';
   }, []);
 
   const toggleTheme = () => {
