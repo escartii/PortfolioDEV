@@ -104,7 +104,22 @@
   0%, 90%, 100% {
     background-position: calc(-100% - var(--shiny-width)) 0;}
   30%, 60% {
-    background-position: calc(100% + var(--shiny-width)) 0;}}}
+    background-position: calc(100% + var(--shiny-width)) 0;}}
+  @keyframes pulse {
+  0%, 100% {
+    boxShadow: 0 0 0 0 var(--pulse-color);}
+  50% {
+    boxShadow: 0 0 0 8px var(--pulse-color);}}
+  @keyframes shiny-text {
+  0%, 90%, 100% {
+    background-position: calc(-100% - var(--shiny-width)) 0;}
+  30%, 60% {
+    background-position: calc(100% + var(--shiny-width)) 0;}}
+  @keyframes pulse {
+  0%, 100% {
+    boxShadow: 0 0 0 0 var(--pulse-color);}
+  50% {
+    boxShadow: 0 0 0 8px var(--pulse-color);}}}
 
 :root {
   --radius: 0.625rem;

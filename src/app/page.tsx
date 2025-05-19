@@ -2,18 +2,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { VelocityScroll } from "@/components/magicui/scroll-based-velocity";
-import { Dock, DockIcon } from "@/components/magicui/dock";
-import { Home, Settings, Globe, User, Mail, Moon, Sun, Code, Briefcase, Award, Github, Linkedin, Twitter, Database, Cloud, Cpu, Shield } from "lucide-react";
+import { Home, Calendar, QrCode, ShoppingBag, Users, Code, Shield, CheckCircle, Activity, Phone, CreditCard, ArrowRight, Languages, Database, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
-import { Marquee } from "@/components/magicui/marquee";
 import { Globe as GlobeComponent } from "@/components/magicui/globe";
-import { AuroraText } from "@/components/magicui/aurora-text";
+import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { BlurFade } from "@/components/magicui/blur-fade";
 import { Meteors } from "@/components/magicui/meteors";
-import { AnimatedShinyText } from "@/components/magicui/animated-shiny-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
+import { PulsatingButton } from "@/components/magicui/pulsating-button";
+import { LayoutGroup, motion } from "motion/react";
+import { TextRotate } from "@/components/ui/text-rotate";
+import { AnimatedList } from "@/components/magicui/animated-list";
 
 // Navigation helper function
 const scrollToSection = (id: string) => {
@@ -28,239 +29,769 @@ const scrollToSection = (id: string) => {
   }
 };
 
-// Programming Tech Icons
-const TechIcons = {
-  react: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
-<path fill="#80deea" d="M24,34C11.1,34,1,29.6,1,24c0-5.6,10.1-10,23-10c12.9,0,23,4.4,23,10C47,29.6,36.9,34,24,34z M24,16	c-12.6,0-21,4.1-21,8c0,3.9,8.4,8,21,8s21-4.1,21-8C45,20.1,36.6,16,24,16z"></path><path fill="#80deea" d="M15.1,44.6c-1,0-1.8-0.2-2.6-0.7C7.6,41.1,8.9,30.2,15.3,19l0,0c3-5.2,6.7-9.6,10.3-12.4c3.9-3,7.4-3.9,9.8-2.5	c2.5,1.4,3.4,4.9,2.8,9.8c-0.6,4.6-2.6,10-5.6,15.2c-3,5.2-6.7,9.6-10.3,12.4C19.7,43.5,17.2,44.6,15.1,44.6z M32.9,5.4	c-1.6,0-3.7,0.9-6,2.7c-3.4,2.7-6.9,6.9-9.8,11.9l0,0c-6.3,10.9-6.9,20.3-3.6,22.2c1.7,1,4.5,0.1,7.6-2.3c3.4-2.7,6.9-6.9,9.8-11.9	c2.9-5,4.8-10.1,5.4-14.4c0.5-4-0.1-6.8-1.8-7.8C34,5.6,33.5,5.4,32.9,5.4z"></path><path fill="#80deea" d="M33,44.6c-5,0-12.2-6.1-17.6-15.6C8.9,17.8,7.6,6.9,12.5,4.1l0,0C17.4,1.3,26.2,7.8,32.7,19	c3,5.2,5,10.6,5.6,15.2c0.7,4.9-0.3,8.3-2.8,9.8C34.7,44.4,33.9,44.6,33,44.6z M13.5,5.8c-3.3,1.9-2.7,11.3,3.6,22.2	c6.3,10.9,14.1,16.1,17.4,14.2c1.7-1,2.3-3.8,1.8-7.8c-0.6-4.3-2.5-9.4-5.4-14.4C24.6,9.1,16.8,3.9,13.5,5.8L13.5,5.8z"></path><circle cx="24" cy="24" r="4" fill="#80deea"></circle>
-</svg>
-  ),
-  javascript: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
-<path fill="#ffd600" d="M6,42V6h36v36H6z"></path><path fill="#000001" d="M29.538 32.947c.692 1.124 1.444 2.201 3.037 2.201 1.338 0 2.04-.665 2.04-1.585 0-1.101-.726-1.492-2.198-2.133l-.807-.344c-2.329-.988-3.878-2.226-3.878-4.841 0-2.41 1.845-4.244 4.728-4.244 2.053 0 3.528.711 4.592 2.573l-2.514 1.607c-.553-.988-1.151-1.377-2.078-1.377-.946 0-1.545.597-1.545 1.377 0 .964.6 1.354 1.985 1.951l.807.344C36.452 29.645 38 30.839 38 33.523 38 36.415 35.716 38 32.65 38c-2.999 0-4.702-1.505-5.65-3.368L29.538 32.947zM17.952 33.029c.506.906 1.275 1.603 2.381 1.603 1.058 0 1.667-.418 1.667-2.043V22h3.333v11.101c0 3.367-1.953 4.899-4.805 4.899-2.577 0-4.437-1.746-5.195-3.368L17.952 33.029z"></path>
-</svg>
-  ),
-  Java: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
-<path fill="#F44336" d="M23.65,24.898c-0.998-1.609-1.722-2.943-2.725-5.455C19.229,15.2,31.24,11.366,26.37,3.999c2.111,5.089-7.577,8.235-8.477,12.473C17.07,20.37,23.645,24.898,23.65,24.898z"></path><path fill="#F44336" d="M23.878,17.27c-0.192,2.516,2.229,3.857,2.299,5.695c0.056,1.496-1.447,2.743-1.447,2.743s2.728-0.536,3.579-2.818c0.945-2.534-1.834-4.269-1.548-6.298c0.267-1.938,6.031-5.543,6.031-5.543S24.311,11.611,23.878,17.27z"></path><g><path fill="#1565C0" d="M32.084 25.055c1.754-.394 3.233.723 3.233 2.01 0 2.901-4.021 5.643-4.021 5.643s6.225-.742 6.225-5.505C37.521 24.053 34.464 23.266 32.084 25.055zM29.129 27.395c0 0 1.941-1.383 2.458-1.902-4.763 1.011-15.638 1.147-15.638.269 0-.809 3.507-1.638 3.507-1.638s-7.773-.112-7.773 2.181C11.683 28.695 21.858 28.866 29.129 27.395z"></path><path fill="#1565C0" d="M27.935,29.571c-4.509,1.499-12.814,1.02-10.354-0.993c-1.198,0-2.974,0.963-2.974,1.889c0,1.857,8.982,3.291,15.63,0.572L27.935,29.571z"></path><path fill="#1565C0" d="M18.686,32.739c-1.636,0-2.695,1.054-2.695,1.822c0,2.391,9.76,2.632,13.627,0.205l-2.458-1.632C24.271,34.404,17.014,34.579,18.686,32.739z"></path><path fill="#1565C0" d="M36.281,36.632c0-0.936-1.055-1.377-1.433-1.588c2.228,5.373-22.317,4.956-22.317,1.784c0-0.721,1.807-1.427,3.477-1.093l-1.42-0.839C11.26,34.374,9,35.837,9,37.017C9,42.52,36.281,42.255,36.281,36.632z"></path><path fill="#1565C0" d="M39,38.604c-4.146,4.095-14.659,5.587-25.231,3.057C24.341,46.164,38.95,43.628,39,38.604z"></path></g>
-</svg>
-  ),
-  nodejs: () => (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="#339933">
-      <path d="M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.276-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z"/>
-    </svg>
-  ),
-  python: () => (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="#3776AB">
-      <path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/>
-    </svg>
-  ),
-  bash: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
-<path fill="#ededed" fillRule="evenodd" d="M22.903,3.286c0.679-0.381,1.515-0.381,2.193,0 c3.355,1.883,13.451,7.551,16.807,9.434C42.582,13.1,43,13.804,43,14.566c0,3.766,0,15.101,0,18.867 c0,0.762-0.418,1.466-1.097,1.847c-3.355,1.883-13.451,7.551-16.807,9.434c-0.679,0.381-1.515,0.381-2.193,0 c-3.355-1.883-13.451-7.551-16.807-9.434C5.418,34.899,5,34.196,5,33.434c0-3.766,0-15.101,0-18.867 c0-0.762,0.418-1.466,1.097-1.847C9.451,10.837,19.549,5.169,22.903,3.286z" clipRule="evenodd"></path><path fill="#434345" d="M23.987,46.221c-1.085,0-2.171-0.252-3.165-0.757c-2.22-1.127-5.118-2.899-7.921-4.613 c-1.973-1.206-3.836-2.346-5.297-3.157C5.381,36.458,4,34.113,4,31.572V16.627c0-2.59,1.417-4.955,3.699-6.173 c3.733-1.989,9.717-5.234,12.878-7.01h0c2.11-1.184,4.733-1.184,6.844,0c3.576,2.007,10.369,6.064,14.252,8.513 C43.13,12.874,44,14.453,44,16.182V32c0,2.4-0.859,4.048-2.553,4.895c-0.944,0.531-2.628,1.576-4.578,2.787 c-3.032,1.882-6.806,4.225-9.564,5.705C26.27,45.942,25.128,46.221,23.987,46.221z M21.556,5.188 C18.384,6.97,12.382,10.226,8.64,12.22C7.012,13.088,6,14.776,6,16.627v14.945c0,1.814,0.987,3.49,2.576,4.373 c1.498,0.832,3.378,1.981,5.369,3.199c2.77,1.693,5.634,3.445,7.783,4.536c1.458,0.739,3.188,0.717,4.631-0.056 c2.703-1.451,6.447-3.775,9.456-5.643c1.97-1.223,3.671-2.279,4.696-2.854C41.835,34.464,42,33.109,42,32V16.182 c0-1.037-0.521-1.983-1.392-2.532c-3.862-2.435-10.613-6.467-14.165-8.461C24.913,4.331,23.086,4.331,21.556,5.188L21.556,5.188z"></path><path fill="#434345" d="M22.977,41.654l-0.057-13.438c-0.011-2.594,1.413-4.981,3.701-6.204l12.01-6.416 c1.998-1.068,4.414,0.38,4.414,2.646v14.73c0,1.041-0.54,2.008-1.426,2.554l-14.068,8.668 C25.557,45.424,22.987,43.996,22.977,41.654z"></path><path fill="#ededed" d="M28.799,26.274c0.123-0.063,0.225,0.014,0.227,0.176l0.013,1.32 c0.552-0.219,1.032-0.278,1.467-0.177c0.095,0.024,0.136,0.153,0.098,0.306l-0.291,1.169c-0.024,0.089-0.072,0.178-0.132,0.233 c-0.026,0.025-0.052,0.044-0.077,0.057c-0.04,0.02-0.078,0.026-0.114,0.019c-0.199-0.045-0.671-0.148-1.413,0.228 c-0.778,0.395-1.051,1.071-1.046,1.573c0.007,0.601,0.315,0.783,1.377,0.802c1.416,0.023,2.027,0.643,2.042,2.067 c0.016,1.402-0.733,2.905-1.876,3.826l0.025,1.308c0.001,0.157-0.1,0.338-0.225,0.4l-0.775,0.445 c-0.123,0.063-0.225-0.014-0.227-0.172l-0.013-1.286c-0.664,0.276-1.334,0.342-1.763,0.17c-0.082-0.032-0.117-0.152-0.084-0.288 l0.28-1.181c0.022-0.092,0.071-0.186,0.138-0.246c0.023-0.023,0.048-0.04,0.072-0.053c0.044-0.022,0.087-0.027,0.124-0.013 c0.462,0.155,1.053,0.082,1.622-0.206c0.722-0.365,1.206-1.102,1.198-1.834c-0.007-0.664-0.366-0.939-1.241-0.946 c-1.113,0.002-2.151-0.216-2.168-1.855c-0.014-1.35,0.688-2.753,1.799-3.641l-0.013-1.319c-0.001-0.162,0.098-0.34,0.225-0.405 L28.799,26.274z"></path><path fill="#4da925" d="M37.226,34.857l-3.704,2.185c-0.109,0.061-0.244-0.019-0.244-0.143v-1.252 c0-0.113,0.061-0.217,0.16-0.273l3.704-2.185c0.111-0.061,0.246,0.019,0.246,0.145v1.248 C37.388,34.697,37.326,34.801,37.226,34.857"></path>
-</svg>
-  ),
-  docker: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
-<path fill="#2395ec" d="M47.527,19.847c-0.13-0.102-1.345-1.007-3.908-1.007c-0.677,0.003-1.352,0.06-2.019,0.171 c-0.496-3.354-3.219-4.93-3.345-5.003l-0.688-0.392l-0.453,0.644c-0.567,0.866-1.068,1.76-1.311,2.763 c-0.459,1.915-0.18,3.713,0.806,5.25C35.417,22.928,33.386,22.986,33,23H1.582c-0.826,0.001-1.496,0.66-1.501,1.474 c-0.037,2.733,0.353,5.553,1.306,8.119c1.089,2.818,2.71,4.894,4.818,6.164C8.567,40.184,12.405,41,16.756,41 c1.965,0.006,3.927-0.169,5.859-0.524c2.686-0.487,5.271-1.413,7.647-2.74c1.958-1.119,3.72-2.542,5.219-4.215 c2.505-2.798,3.997-5.913,5.107-8.682c0.149,0,0.298,0,0.442,0c2.743,0,4.429-1.083,5.359-1.99 c0.618-0.579,1.101-1.284,1.414-2.065L48,20.216L47.527,19.847z"></path><path fill="#2395ec" d="M8,22H5c-0.552,0-1-0.448-1-1v-3c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C9,21.552,8.552,22,8,22z"></path><path fill="#2395ec" d="M14,22h-3c-0.552,0-1-0.448-1-1v-3c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C15,21.552,14.552,22,14,22z"></path><path fill="#2395ec" d="M20,22h-3c-0.552,0-1-0.448-1-1v-3c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C21,21.552,20.552,22,20,22z"></path><path fill="#2395ec" d="M26,22h-3c-0.552,0-1-0.448-1-1v-3c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C27,21.552,26.552,22,26,22z"></path><path fill="#2395ec" d="M14,16h-3c-0.552,0-1-0.448-1-1v-3c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C15,15.552,14.552,16,14,16z"></path><path fill="#2395ec" d="M20,16h-3c-0.552,0-1-0.448-1-1v-3c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C21,15.552,20.552,16,20,16z"></path><path fill="#2395ec" d="M26,16h-3c-0.552,0-1-0.448-1-1v-3c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C27,15.552,26.552,16,26,16z"></path><path fill="#2395ec" d="M26,10h-3c-0.552,0-1-0.448-1-1V6c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C27,9.552,26.552,10,26,10z"></path><path fill="#2395ec" d="M32,22h-3c-0.552,0-1-0.448-1-1v-3c0-0.552,0.448-1,1-1h3c0.552,0,1,0.448,1,1v3 C33,21.552,32.552,22,32,22z"></path>
-</svg>
-  ),
-  git: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
-<path fill="#F4511E" d="M42.2,22.1L25.9,5.8C25.4,5.3,24.7,5,24,5c0,0,0,0,0,0c-0.7,0-1.4,0.3-1.9,0.8l-3.5,3.5l4.1,4.1c0.4-0.2,0.8-0.3,1.3-0.3c1.7,0,3,1.3,3,3c0,0.5-0.1,0.9-0.3,1.3l4,4c0.4-0.2,0.8-0.3,1.3-0.3c1.7,0,3,1.3,3,3s-1.3,3-3,3c-1.7,0-3-1.3-3-3c0-0.5,0.1-0.9,0.3-1.3l-4-4c-0.1,0-0.2,0.1-0.3,0.1v10.4c1.2,0.4,2,1.5,2,2.8c0,1.7-1.3,3-3,3s-3-1.3-3-3c0-1.3,0.8-2.4,2-2.8V18.8c-1.2-0.4-2-1.5-2-2.8c0-0.5,0.1-0.9,0.3-1.3l-4.1-4.1L5.8,22.1C5.3,22.6,5,23.3,5,24c0,0.7,0.3,1.4,0.8,1.9l16.3,16.3c0,0,0,0,0,0c0.5,0.5,1.2,0.8,1.9,0.8s1.4-0.3,1.9-0.8l16.3-16.3c0.5-0.5,0.8-1.2,0.8-1.9C43,23.3,42.7,22.6,42.2,22.1z"></path>
-</svg>
-  ),
-  openai: () => (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="#412991">
-      <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/>
-    </svg>
-  ),
+// Pricing Plans
+const pricingPlans = [
+  {
+    name: "Starter",
+    price: "49",
+    billing: "mensual",
+    desc: "Perfecto para clubs pequeños con hasta 3 pistas",
+    features: [
+      "Hasta 3 pistas de pádel",
+      "Reservas ilimitadas",
+      "Calendario básico",
+      "Análisis básico de ocupación",
+      "Soporte por email"
+    ],
+    cta: "Comenzar prueba gratis",
+    popular: false
+  },
+  {
+    name: "Premium",
+    price: "99",
+    billing: "mensual",
+    desc: "Ideal para clubs medianos con mayor afluencia",
+    features: [
+      "Hasta 10 pistas de pádel",
+      "Reservas ilimitadas",
+      "Calendario avanzado",
+      "Análisis detallado",
+      "Integración con pagos",
+      "Soporte prioritario",
+      "Sistema de torneos"
+    ],
+    cta: "Probar 14 días gratis",
+    popular: true
+  },
+  {
+    name: "Enterprise",
+    price: "199",
+    billing: "mensual",
+    desc: "Para grandes clubs y cadenas con múltiples sedes",
+    features: [
+      "Pistas ilimitadas",
+      "Multi-sede",
+      "Sistema de torneos avanzado",
+      "API personalizada",
+      "Panel de administración avanzado",
+      "Soporte 24/7",
+      "App personalizada"
+    ],
+    cta: "Contactar ventas",
+    popular: false
+  },
+];
+
+// Testimonials
+const testimonials = [
+  {
+    name: "Carlos Martínez",
+    handle: "@padelclubmalaga",
+    text: "PadelBook ha revolucionado la gestión de nuestro club. Los usuarios pueden reservar a cualquier hora del día y nosotros tenemos toda la información organizada. ¡La ocupación ha aumentado un 30%! #Pádel #Innovación",
+    avatarInitials: "CM",
+    likes: 124,
+    retweets: 36,
+    date: "10:23 AM • Mar 12, 2024"
+  },
+  {
+    name: "Laura Sánchez",
+    handle: "@worldpadel",
+    text: "Desde que implementamos PadelBook, las quejas por dobles reservas han desaparecido. El sistema de pagos online nos ha facilitado enormemente la gestión y los jugadores están encantados con la app. #GestiónDeportiva #Tecnología",
+    avatarInitials: "LS",
+    likes: 98,
+    retweets: 24,
+    date: "2:47 PM • Abr 3, 2024"
+  },
+  {
+    name: "Miguel Ángel",
+    handle: "@padelcenter",
+    text: "Como propietario de 4 centros de pádel, PadelBook Enterprise ha simplificado nuestra gestión. El sistema multi-sede nos permite controlar todo desde un único panel y los informes son fundamentales para nuestras decisiones. Inversión que vale cada euro.",
+    avatarInitials: "MA",
+    likes: 203,
+    retweets: 59,
+    date: "4:36 PM • Feb 18, 2024"
+  },
+];
+
+// Features for BentoGrid
+// Implementación de notificaciones para el BentoGrid
+// Primero definimos el componente Notification
+interface NotificationProps {
+  name: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;
+  time: string;
+}
+
+const Notification = ({ name, description, icon, color, time }: NotificationProps) => {
+  return (
+    <figure className={cn(
+      "relative mx-auto min-h-fit w-full max-w-[400px] cursor-pointer overflow-hidden rounded-2xl p-4",
+      // animation styles
+      "transition-all duration-200 ease-in-out hover:scale-[103%]",
+      // light styles
+      "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
+      // dark styles
+      "transform-gpu dark:bg-transparent dark:backdrop-blur-md dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
+    )}>
+      <div className="flex flex-row items-center gap-3">
+        <div 
+          className="flex size-10 items-center justify-center rounded-2xl"
+          style={{ backgroundColor: color }}
+        >
+          <span className="text-lg">{icon}</span>
+        </div>
+        <div className="flex flex-col overflow-hidden">
+          <figcaption className="flex flex-row items-center whitespace-pre text-lg font-medium dark:text-white">
+            <span className="text-sm sm:text-lg">{name}</span>
+            <span className="mx-1">·</span>
+            <span className="text-xs text-gray-500">{time}</span>
+          </figcaption>
+          <p className="text-sm font-normal dark:text-white/60">
+            {description}
+          </p>
+        </div>
+      </div>
+    </figure>
+  );
 };
 
-const projects = [
-  { 
-    name: "SaaS Dashboard", 
-    tech: "React, Node.js, MongoDB",
-    desc: "Complete dashboard with analytics, user management, and payment integration.",
-    status: "Completado"
-  },
-  { 
-    name: "E-commerce Platform", 
-    tech: "Next.js, Stripe, PostgreSQL",
-    desc: "Full-featured e-commerce solution with inventory management and order tracking.",
-    status: "En desarrollo"
-  },
-  { 
-    name: "AI Chat Bot", 
-    tech: "Python, OpenAI, FastAPI",
-    desc: "Intelligent chatbot with natural language processing and context awareness.",
-    status: "Completado"
-  },
-  { 
-    name: "Mobile App", 
-    tech: "React Native, Firebase",
-    desc: "Cross-platform mobile application with real-time synchronization.",
-    status: "Completado"
-  },
-  { 
-    name: "Web3 DApp", 
-    tech: "Solidity, Web3.js, IPFS",
-    desc: "Decentralized application with smart contracts and blockchain integration.",
-    status: "En desarrollo"
-  },
-];
-
-// Enhanced features for BentoGrid with Magic UI components
-const features = [
-  {
-    Icon: Code,
-    name: "Desarrollo Frontend",
-    description: "Especializado en React, Next.js y las últimas tecnologías frontend con interfaces modernas e intuitivas.",
-    href: "#",
-    cta: "Ver proyectos",
-    className: "col-span-3 lg:col-span-1",
-    background: (
-      <div className="absolute inset-0 overflow-hidden">
-        <Meteors number={20} />
-        <div className="absolute bottom-4 right-4">
-          <Code className="h-16 w-16 text-blue-500 opacity-20" />
-        </div>
-      </div>
-    ),
-  },
-  {
-    Icon: Briefcase,
-    name: "Proyectos Exitosos",
-    description: "Más de 50 proyectos completados con clientes satisfechos alrededor del mundo.",
-    href: "#",
-    cta: "Ver portfolio",
-    className: "col-span-3 lg:col-span-2",
-    background: (
-      <div className="absolute inset-0">
-        <div className="absolute top-4 right-4 flex items-center gap-4">
-          <NumberTicker value={50} className="text-6xl font-bold text-green-500" />
-          <div className="text-lg font-semibold text-green-500">Proyectos</div>
-        </div>
-        <div className="absolute bottom-4 left-4">
-          <div className="flex gap-2">
-            <div className="w-3 h-3 rounded-full bg-green-500"></div>
-            <div className="w-3 h-3 rounded-full bg-blue-500"></div>
-            <div className="w-3 h-3 rounded-full bg-purple-500"></div>
-          </div>
-        </div>
-      </div>
-    ),
-  },
-  {
-    Icon: Globe,
-    name: "Alcance Global",
-    description: "Conectando usuarios de más de 30 países con soluciones tecnológicas innovadoras.",
-    href: "#",
-    cta: "Conocer más",
-    className: "col-span-3 lg:col-span-2",
-    background: (
-      <div className="absolute inset-0 overflow-hidden">
-        <GlobeComponent className="absolute -right-10 -top-10 scale-75 opacity-30" />
-      </div>
-    ),
-  },
-  {
-    Icon: Award,
-    name: "Tecnologías Avanzadas",
-    description: "Utilizando las últimas tecnologías: IA, Blockchain, Cloud Computing y más.",
-    className: "col-span-3 lg:col-span-1",
-    href: "#",
-    cta: "Ver skills",
-    background: (
-      <div className="absolute inset-0">
-        <div className="absolute top-4 right-4 grid grid-cols-2 gap-2">
-          <Database className="h-8 w-8 text-purple-500" />
-          <Cloud className="h-8 w-8 text-blue-500" />
-          <Shield className="h-8 w-8 text-green-500" />
-          <Cpu className="h-8 w-8 text-orange-500" />
-        </div>
-      </div>
-    ),
-  },
-];
-
-function BentoDemo() {
-  return (
-    <BentoGrid>
-      {features.map((feature, idx) => (
-        <BentoCard key={idx} {...feature} />
-      ))}
-    </BentoGrid>
-  );
+// Estilos CSS para animaciones (con mejor optimización)
+const styles = `
+@keyframes rise {
+  0% { transform: scaleY(0); transform-origin: bottom; }
+  100% { transform: scaleY(1); transform-origin: bottom; }
 }
 
-function ProjectsMarquee() {
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes grow-in {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-subtle {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.7; }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-rise {
+  animation: rise 1.5s ease-out forwards;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.animate-grow-in {
+  animation: grow-in 0.8s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.animate-appear {
+  animation: appear 0.5s ease-out forwards;
+}
+`;
+
+// Componente de calendario de reservas
+const CalendarDisplay = () => {
   return (
-    <Marquee
-      pauseOnHover
-      className="absolute top-10 [--duration:25s] [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)]"
-    >
-      {projects.map((project, idx) => (
-        <figure
-          key={idx}
-          className={cn(
-            "relative w-72 cursor-pointer overflow-hidden rounded-xl border p-6 mx-4",
-            "border-gray-200 dark:border-gray-700 bg-white/50 dark:bg-gray-800/50 hover:bg-white/70 dark:hover:bg-gray-800/70 shadow-lg",
-            "transform-gpu transition-all duration-300 ease-out hover:scale-105",
-          )}
-        >
-          <div className="flex flex-col">
-            <div className="flex justify-between items-start mb-3">
-              <figcaption className="text-lg font-bold text-gray-900 dark:text-white">{project.name}</figcaption>
-              <span className={cn(
-                "text-xs px-2 py-1 rounded-full",
-                project.status === "Completado" 
-                  ? "bg-green-100 text-green-800" 
-                  : "bg-blue-100 text-blue-800"
-              )}>{project.status}</span>
+    <div className="absolute inset-0 p-4 flex items-center justify-center">
+      <div className="relative w-full h-full">
+        {/* Fondo degradado sutil */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#10B981]/5 to-[#34D399]/5 rounded-xl"></div>
+        
+        {/* Calendario */}
+        <div className="absolute inset-0 m-4 bg-white rounded-lg shadow-md border border-gray-100 flex flex-col overflow-hidden">
+          {/* Header del calendario */}
+          <div className="px-3 py-2 bg-[#10B981] text-white flex justify-between items-center">
+            <div className="text-sm font-medium">Mayo 2025</div>
+            <div className="flex space-x-2">
+              <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                <ArrowRight className="w-3 h-3 transform rotate-180" />
+              </div>
+              <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                <ArrowRight className="w-3 h-3" />
+              </div>
             </div>
-            <p className="text-sm mb-3 text-blue-600 font-medium">{project.tech}</p>
-            <blockquote className="text-sm leading-relaxed text-gray-600 dark:text-gray-300">{project.desc}</blockquote>
           </div>
-        </figure>
-      ))}
-    </Marquee>
-  );
-}
-
-interface CircleProps {
-  className?: string;
-  children?: React.ReactNode;
-}
-
-const Circle = React.forwardRef<HTMLDivElement, CircleProps>(({ className, children }, ref) => {
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "z-10 flex size-12 items-center justify-center rounded-full border-2 p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]",
-        "dark:bg-gray-800 dark:border-gray-600 bg-white border-gray-200",
-        className,
-      )}
-    >
-      {children}
+          
+          {/* Días de la semana */}
+          <div className="grid grid-cols-7 text-center text-xs text-gray-500 bg-gray-50 py-1">
+            {['L', 'M', 'X', 'J', 'V', 'S', 'D'].map((day, i) => (
+              <div key={i}>{day}</div>
+            ))}
+          </div>
+          
+          {/* Días del mes */}
+          <div className="grid grid-cols-7 flex-1 gap-1 p-2 text-xs">
+            {Array.from({ length: 35 }).map((_, i) => {
+              const dayNum = i - 3; // Empezar desde -3 para que el día 1 caiga en jueves
+              const isCurrentMonth = dayNum > 0 && dayNum <= 31;
+              const isToday = dayNum === 14;
+              const isBooked = [4, 10, 15, 18, 22, 25, 28].includes(dayNum);
+              const isPartiallyBooked = [2, 7, 12, 19, 24, 30].includes(dayNum);
+              
+              return (
+                <div 
+                  key={i} 
+                  className={`rounded flex flex-col items-center p-1 ${
+                    isCurrentMonth ? 'bg-white' : 'opacity-30 bg-gray-50'
+                  } ${isToday ? 'border-2 border-[#10B981]' : 'border border-gray-100'}`}
+                >
+                  <div className={`w-6 h-6 flex items-center justify-center rounded-full ${
+                    isToday ? 'bg-[#10B981] text-white font-bold' : ''
+                  }`}>
+                    {isCurrentMonth ? dayNum : (dayNum <= 0 ? 31 + dayNum : dayNum - 31)}
+                  </div>
+                  {isCurrentMonth && (
+                    <div className="w-full mt-1 flex justify-center">
+                      <div className={`h-1 rounded-full ${
+                        isBooked ? 'w-full bg-red-400' : 
+                        isPartiallyBooked ? 'w-1/2 bg-yellow-400' : 'w-full bg-[#34D399]'
+                      }`}></div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          
+          {/* Leyenda */}
+          <div className="px-3 py-1 flex justify-end space-x-3 border-t border-gray-100 text-[9px] text-gray-500">
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-[#34D399] rounded-full mr-1"></div>
+              <span>Disponible</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full mr-1"></div>
+              <span>Parcial</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-red-400 rounded-full mr-1"></div>
+              <span>Completo</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Notificación flotante */}
+        <div className="absolute bottom-6 right-6 px-2 py-1 bg-white text-[#10B981] shadow-md rounded-lg text-xs font-medium animate-pulse-subtle">
+          ¡Pista 3 reservada!
+        </div>
+      </div>
     </div>
   );
-});
+};
 
-Circle.displayName = "Circle";
+// NUEVO: Análisis Avanzado completamente rediseñado
+const ModernAnalytics = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <style>{styles}</style>
+      
+      {/* Fondo sutil con gradientes */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white"></div>
+      <div className="absolute -right-10 top-10 w-40 h-40 bg-[#10B981]/5 rounded-full blur-xl"></div>
+      
+      {/* Panel principal */}
+      <div className="absolute inset-4 bg-white rounded-lg shadow-lg overflow-hidden border border-gray-100 flex flex-col">
+        {/* Header */}
+        <div className="p-3 border-b border-gray-100 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <div className="w-3 h-3 rounded-full bg-[#10B981]"></div>
+            <span className="text-xs font-semibold text-gray-700">Ocupación en tiempo real</span>
+          </div>
+          <div className="flex space-x-1">
+            <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
+              <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+            </div>
+            <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center">
+              <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Contenido */}
+        <div className="flex-1 grid grid-cols-2 gap-2 p-3">
+          {/* KPI Cards */}
+          <div className="col-span-2 grid grid-cols-3 gap-2">
+            {[
+              { label: "Reservas", value: "438", percent: "+24%", color: "#10B981" },
+              { label: "Usuarios", value: "215", percent: "+12%", color: "#4C9EFF" },
+              { label: "Ocupación", value: "76%", percent: "+8%", color: "#10B981" }
+            ].map((kpi, idx) => (
+              <div key={idx} className="bg-gray-50 p-2 rounded-lg border border-gray-100">
+                <div className="text-xs text-gray-500 mb-1">{kpi.label}</div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-bold">{kpi.value}</span>
+                  <span className="text-xs font-medium px-1 py-0.5 rounded-sm" style={{ 
+                    backgroundColor: `${kpi.color}20`,
+                    color: kpi.color
+                  }}>
+                    {kpi.percent}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Gráfico de barras */}
+          <div className="bg-gray-50 rounded-lg border border-gray-100 p-2 flex flex-col">
+            <div className="text-xs text-gray-500 mb-2">Reservas por día</div>
+            <div className="flex-1 flex items-end space-x-1 pb-1">
+              {[40, 65, 50, 90, 75, 60].map((height, idx) => (
+                <div key={idx} className="flex-1 flex flex-col items-center">
+                  <div 
+                    className="w-full rounded-t-sm animate-rise bg-gradient-to-t from-[#10B981] to-[#34D399]" 
+                    style={{ 
+                      height: `${height}%`,
+                      animationDelay: `${idx * 100}ms`
+                    }}
+                  ></div>
+                  <span className="text-[8px] mt-1 text-gray-400 font-medium">
+                    {['L', 'M', 'X', 'J', 'V', 'S'][idx]}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Gráfico circular */}
+          <div className="bg-gray-50 rounded-lg border border-gray-100 p-2 flex flex-col">
+            <div className="text-xs text-gray-500 mb-1">Distribución por horas</div>
+            <div className="flex-1 relative">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                {[
+                  { name: "Mañana", value: 35, color: "#10B981" },
+                  { name: "Tarde", value: 45, color: "#4C9EFF" },
+                  { name: "Noche", value: 20, color: "#8B5CF6" }
+                ].map((category, i) => {
+                  const total = 100;
+                  const startAngle = i === 0 ? 0 : [35, 80].slice(0, i).reduce((a, b) => a + b, 0) * 3.6;
+                  const endAngle = startAngle + category.value * 3.6;
+                  
+                  const startRad = (startAngle - 90) * Math.PI / 180;
+                  const endRad = (endAngle - 90) * Math.PI / 180;
+                  
+                  const x1 = 50 + 30 * Math.cos(startRad);
+                  const y1 = 50 + 30 * Math.sin(startRad);
+                  const x2 = 50 + 30 * Math.cos(endRad);
+                  const y2 = 50 + 30 * Math.sin(endRad);
+                  
+                  const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
+                  
+                  return (
+                    <path 
+                      key={i}
+                      d={`M 50,50 L ${x1},${y1} A 30,30 0 ${largeArcFlag},1 ${x2},${y2} Z`}
+                      fill={category.color}
+                      className="animate-grow-in"
+                      style={{ animationDelay: `${i * 200}ms` }}
+                    />
+                  );
+                })}
+                <circle cx="50" cy="50" r="15" fill="white" />
+                <text x="50" y="50" textAnchor="middle" dominantBaseline="middle" fontSize="10" fontWeight="bold" fill="#333">
+                  100%
+                </text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
+        {/* Footer con etiquetas */}
+        <div className="p-2 flex justify-center space-x-2">
+          {[
+            { color: "#10B981", label: "Mañana" },
+            { color: "#4C9EFF", label: "Tarde" },
+            { color: "#8B5CF6", label: "Noche" }
+          ].map((item, idx) => (
+            <div key={idx} className="flex items-center space-x-1">
+              <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }}></div>
+              <span className="text-[8px] text-gray-500">{item.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-function TechSkillsBeam() {
+// Componente de app móvil
+const AppMockup = () => {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      {/* Elementos de decoración */}
+      <div className="absolute top-5 left-5 w-16 h-16 bg-[#10B981]/5 rounded-full blur-lg"></div>
+      <div className="absolute bottom-5 right-5 w-20 h-20 bg-[#10B981]/5 rounded-full blur-lg"></div>
+      
+      {/* Dispositivo móvil */}
+      <div className="w-48 h-96 rounded-3xl bg-gray-800 p-1 shadow-xl overflow-hidden relative">
+        {/* Pantalla */}
+        <div className="w-full h-full rounded-2xl bg-white overflow-hidden flex flex-col">
+          {/* Barra de estado */}
+          <div className="h-6 bg-gradient-to-r from-[#10B981] to-[#34D399] flex items-center justify-between px-3">
+            <div className="w-10 h-1.5 bg-white/40 rounded-full"></div>
+            <div className="flex space-x-1">
+              {[1, 2, 3].map(i => (
+                <div key={i} className="w-1.5 h-1.5 bg-white/70 rounded-full"></div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Contenido de pistas */}
+          <div className="flex-1 p-3 flex flex-col space-y-3">
+            {/* Fecha */}
+            <div className="text-xs font-medium text-center py-1 bg-gray-50 rounded-full">
+              Hoy, 19 de Mayo
+            </div>
+            
+            {/* Pistas disponibles */}
+            {["Pista 1", "Pista 2", "Pista 3", "Pista 4", "Pista 5"].map((pista, idx) => (
+              <div 
+                key={idx} 
+                className="bg-gray-50 rounded-lg p-2 flex flex-col shadow-sm animate-appear"
+                style={{ animationDelay: `${idx * 150}ms` }}
+              >
+                <div className="flex justify-between mb-1">
+                  <div className="text-xs font-bold">{pista}</div>
+                  <div className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                    idx === 2 ? 'bg-red-100 text-red-600' : 'bg-[#10B981]/10 text-[#10B981]'
+                  }`}>
+                    {idx === 2 ? 'Ocupada' : 'Disponible'}
+                  </div>
+                </div>
+                <div className="flex space-x-1">
+                  {Array.from({ length: 8 }).map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`flex-1 h-4 rounded-sm text-[8px] flex items-center justify-center ${
+                        idx === 2 ? 'bg-red-200 text-red-700' :
+                        (i === 3 || i === 4) ? 'bg-[#10B981] text-white' : 'bg-gray-200 text-gray-400'
+                      }`}
+                    >
+                      {i + 14}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Barra de navegación */}
+          <div className="h-12 border-t border-gray-100 flex justify-around items-center px-4">
+            {[
+              { icon: "◼", active: false },
+              { icon: "◆", active: true },
+              { icon: "○", active: false }
+            ].map((item, idx) => (
+              <div 
+                key={idx} 
+                className={`w-8 h-8 flex items-center justify-center rounded-full 
+                ${item.active ? 'bg-[#10B981]/10 text-[#10B981]' : 'text-gray-400'}`}
+              >
+                {item.icon}
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Notch */}
+        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/3 h-6 bg-black rounded-b-2xl"></div>
+      </div>
+      
+      {/* Panel de confirmación flotante */}
+      <div className="absolute bottom-8 inset-x-8 bg-white shadow-lg rounded-xl p-3 border border-[#10B981]/10">
+        <div className="flex justify-between items-center mb-2">
+          <div className="text-xs font-semibold text-[#10B981]">Confirmar reserva</div>
+          <div className="flex space-x-1">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === 1 ? 'bg-[#10B981]' : 'bg-gray-200'}`}></div>
+            ))}
+          </div>
+        </div>
+        <div className="flex justify-between items-center">
+          <div className="text-[10px] text-gray-500">Pista 4 • 17:00 - 18:30</div>
+          <div className="bg-[#10B981] text-white text-[10px] px-2 py-1 rounded-md font-medium">
+            Reservar
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Componente de pagos y torneos
+const TournamentsDisplay = () => {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <style>{styles}</style>
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white"></div>
+      
+      {/* Elementos de fondo */}
+      <div className="absolute top-5 right-10 w-20 h-20 bg-[#10B981]/5 rounded-full blur-xl"></div>
+      <div className="absolute bottom-10 left-10 w-16 h-16 bg-[#10B981]/5 rounded-full blur-lg"></div>
+      
+      {/* Panel principal */}
+      <div className="absolute inset-4 bg-white rounded-lg shadow-md border border-gray-100 overflow-hidden flex flex-col">
+        {/* Header - Torneo */}
+        <div className="px-4 py-3 bg-[#10B981] text-white">
+          <div className="text-xs uppercase tracking-wider mb-1">Próximo torneo</div>
+          <div className="flex justify-between">
+            <div className="font-bold">Campeonato de Primavera</div>
+            <div className="text-sm">24-26 Mayo</div>
+          </div>
+        </div>
+        
+        {/* Contenido - Árbol del torneo */}
+        <div className="flex-1 p-3 overflow-auto">
+          <div className="h-full w-full flex items-center justify-center">
+            {/* Estructura del torneo */}
+            <div className="relative w-full max-w-sm">
+              {/* Final */}
+              <div className="absolute top-1/2 right-0 transform -translate-y-1/2 w-16 h-14 border-2 border-[#10B981] rounded bg-[#10B981]/5 flex items-center justify-center">
+                <div className="text-[10px] text-center">
+                  <div className="font-bold">Final</div>
+                  <div className="text-[8px] text-gray-600">26 Mayo</div>
+                </div>
+              </div>
+              
+              {/* Semifinales */}
+              <div className="absolute top-1/4 right-24 transform -translate-y-1/2 w-16 h-12 border border-gray-300 rounded bg-gray-50 flex items-center justify-center">
+                <div className="text-[10px] text-center">
+                  <div>Semi 1</div>
+                  <div className="text-[8px] text-gray-600">25 Mayo</div>
+                </div>
+              </div>
+              <div className="absolute top-3/4 right-24 transform -translate-y-1/2 w-16 h-12 border border-gray-300 rounded bg-gray-50 flex items-center justify-center">
+                <div className="text-[10px] text-center">
+                  <div>Semi 2</div>
+                  <div className="text-[8px] text-gray-600">25 Mayo</div>
+                </div>
+              </div>
+              
+              {/* Cuartos */}
+              <div className="absolute top-1/8 right-48 transform -translate-y-1/2 w-14 h-8 border border-gray-200 rounded bg-gray-50/80 flex items-center justify-center">
+                <div className="text-[8px]">Cuartos 1</div>
+              </div>
+              <div className="absolute top-3/8 right-48 transform -translate-y-1/2 w-14 h-8 border border-gray-200 rounded bg-gray-50/80 flex items-center justify-center">
+                <div className="text-[8px]">Cuartos 2</div>
+              </div>
+              <div className="absolute top-5/8 right-48 transform -translate-y-1/2 w-14 h-8 border border-gray-200 rounded bg-gray-50/80 flex items-center justify-center">
+                <div className="text-[8px]">Cuartos 3</div>
+              </div>
+              <div className="absolute top-7/8 right-48 transform -translate-y-1/2 w-14 h-8 border border-gray-200 rounded bg-gray-50/80 flex items-center justify-center">
+                <div className="text-[8px]">Cuartos 4</div>
+              </div>
+              
+              {/* Líneas de conexión */}
+              {/* Líneas horizontales */}
+              <div className="absolute top-1/4 right-16 transform -translate-y-1/2 h-0.5 w-8 bg-gray-300"></div>
+              <div className="absolute top-3/4 right-16 transform -translate-y-1/2 h-0.5 w-8 bg-gray-300"></div>
+              <div className="absolute top-1/8 right-34 transform -translate-y-1/2 h-0.5 w-6 bg-gray-200"></div>
+              <div className="absolute top-3/8 right-34 transform -translate-y-1/2 h-0.5 w-6 bg-gray-200"></div>
+              <div className="absolute top-5/8 right-34 transform -translate-y-1/2 h-0.5 w-6 bg-gray-200"></div>
+              <div className="absolute top-7/8 right-34 transform -translate-y-1/2 h-0.5 w-6 bg-gray-200"></div>
+              
+              {/* Líneas verticales */}
+              <div className="absolute top-1/4 right-24 h-[50%] w-0.5 bg-gray-300"></div>
+              <div className="absolute top-1/8 right-48 h-[25%] w-0.5 bg-gray-200"></div>
+              <div className="absolute top-5/8 right-48 h-[25%] w-0.5 bg-gray-200"></div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Footer - Inscripción */}
+        <div className="p-3 border-t border-gray-100 bg-gray-50">
+          <div className="flex justify-between items-center">
+            <div>
+              <div className="text-[10px] text-gray-500">Precio de inscripción</div>
+              <div className="font-bold text-sm">25€ por pareja</div>
+            </div>
+            <button className="px-3 py-1.5 bg-[#10B981] text-white text-xs font-medium rounded-lg">
+              Inscribirme
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      {/* Notificación flotante */}
+      <div className="absolute top-12 left-8 px-3 py-2 bg-white shadow-md rounded-lg flex items-center space-x-2 border-l-4 border-[#10B981] animate-float">
+        <div className="w-6 h-6 rounded-full bg-[#10B981]/10 flex items-center justify-center">
+          <Trophy className="w-3 h-3 text-[#10B981]" />
+        </div>
+        <div className="text-xs">
+          <div className="font-medium">¡Inscripción confirmada!</div>
+          <div className="text-gray-500 text-[10px]">Te esperamos el viernes</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Definición de tipo para las características
+interface Feature {
+  name: string;
+  description: string;
+  background: React.ReactNode;
+  cta?: string;
+  href?: string;
+  className?: string;
+}
+
+// Componente de tarjeta personalizado (para evitar problemas de tipos)
+const CustomFeatureCard = ({ feature, index }: { feature: Feature, index: number }) => {
+  const { name, description, background, cta = "", href = "#", className = "" } = feature;
+  
+  return (
+    <div key={index} className={`relative rounded-xl overflow-hidden ${className}`}>
+      {background}
+      <div className="relative z-10 p-6 h-full flex flex-col">
+        <h3 className="text-xl font-bold mb-2">{name}</h3>
+        <p className="mb-4 text-gray-700">{description}</p>
+        {cta && (
+          <div className="mt-auto">
+            <a 
+              href={href} 
+              className="inline-flex items-center text-sm font-medium text-[#10B981]"
+            >
+              {cta}
+              <ArrowRight className="ml-1 h-4 w-4" />
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Features para el grid mejorado con mejor distribución
+const featureItems = [
+  {
+    name: "Reservas simplificadas",
+    description: "Sistema intuitivo de reserva de pistas que permite a los usuarios ver disponibilidad en tiempo real y hacer reservas en segundos.",
+    href: "#",
+    cta: "Ver demo",
+    className: "col-span-3 lg:col-span-1",
+    background: (
+      <div className="absolute inset-0 overflow-hidden">
+        <style>{styles}</style>
+        {/* Meteoros sutiles en el fondo */}
+        <Meteors number={10} />
+        
+        {/* Gradiente de fondo más suave */}
+        <div className="absolute -bottom-10 -right-10 w-36 h-36 rounded-full bg-[#10B981]/5 blur-xl"></div>
+        
+        {/* Calendario de reservas */}
+        <CalendarDisplay />
+        
+        {/* Decoración sutil adicional */}
+        <div className="absolute bottom-8 left-4 w-10 h-10 rounded-full bg-[#10B981]/5 animate-pulse-subtle"></div>
+      </div>
+    ),
+  },
+  {
+    name: "Gestión de torneos",
+    description: "Organiza competiciones con facilidad. Gestiona inscripciones, emparejamientos y resultados para mantener a tus jugadores comprometidos.",
+    href: "#",
+    cta: "Explorar",
+    className: "col-span-3 lg:col-span-2",
+    background: (
+      <div className="absolute inset-0 overflow-hidden">
+        <style>{styles}</style>
+        <div className="absolute top-0 left-0 w-full h-full">
+          <TournamentsDisplay />
+        </div>
+      </div>
+    ),
+  },
+  {
+    name: "Análisis Avanzado",
+    description: "Obtén datos detallados sobre la ocupación de tus pistas, preferencias de los usuarios y tendencias para optimizar tu negocio.",
+    href: "#",
+    cta: "Ver analytics",
+    className: "col-span-3 lg:col-span-2",
+    background: (
+      <div className="absolute inset-0 overflow-hidden">
+        <style>{styles}</style>
+        {/* Análisis Avanzado completamente rediseñado */}
+        <ModernAnalytics />
+      </div>
+    ),
+  },
+  {
+    name: "App para jugadores",
+    description: "Ofrece a tus clientes una experiencia premium con una app móvil intuitiva para reservas, pagos y notificaciones.",
+    className: "col-span-3 lg:col-span-1",
+    href: "#",
+    cta: "Ver funciones",
+    background: (
+      <div className="absolute inset-0 overflow-hidden">
+        <style>{styles}</style>
+        
+        {/* Teléfono móvil rediseñado */}
+        <AppMockup />
+      </div>
+    ),
+  },
+];
+
+// Componente para simular una pista de pádel (icono)
+const PadelCourtIcon = () => (
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="1" />
+    <line x1="12" y1="2" x2="12" y2="22" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <line x1="7" y1="7" x2="7" y2="17" strokeDasharray="1 3" />
+    <line x1="17" y1="7" x2="17" y2="17" strokeDasharray="1 3" />
+  </svg>
+);
+
+// Componente para simular un icono de trofeo
+const Trophy = ({ className = "w-6 h-6" }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+    <path d="M4 22h16"></path>
+    <path d="M10 22v-4"></path>
+    <path d="M14 22v-4"></path>
+    <path d="M12 2v5"></path>
+    <path d="M6 9a6 6 0 0 0 12 0"></path>
+    <path d="M12 12a4 4 0 0 0 4-4"></path>
+  </svg>
+);
+
+// TechBeamComponent para la sección "Cómo funciona"
+function TechBeamComponent() {
   const containerRef = React.useRef(null);
   const centerRef = React.useRef(null);
-  const reactRef = React.useRef(null);
-  const jsRef = React.useRef(null);
-  const tsRef = React.useRef(null);
-  const nodeRef = React.useRef(null);
-  const pythonRef = React.useRef(null);
-  const bashRef = React.useRef(null);
-  const dockerRef = React.useRef(null);
-  const gitRef = React.useRef(null);
+  const reservaRef = React.useRef(null);
+  const calendarioRef = React.useRef(null);
+  const pagoRef = React.useRef(null);
+  const analyticsRef = React.useRef(null);
 
   return (
     <div
@@ -269,110 +800,370 @@ function TechSkillsBeam() {
     >
       <div className="flex size-full max-h-[350px] max-w-lg flex-col items-stretch justify-between gap-10">
         <div className="flex flex-row items-center justify-between">
-          <Circle ref={reactRef}>
-            <TechIcons.react />
-          </Circle>
-          <Circle ref={tsRef}>
-            <TechIcons.Java />
-          </Circle>
-          <Circle ref={nodeRef}>
-            <TechIcons.nodejs />
-          </Circle>
+          <div ref={reservaRef} className="z-10 flex size-16 items-center justify-center rounded-full border-2 border-[#10B981]/40 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]">
+            <Calendar className="h-8 w-8 text-[#10B981]" />
+          </div>
+          <div ref={calendarioRef} className="z-10 flex size-16 items-center justify-center rounded-full border-2 border-gray-300 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]">
+            <Users className="h-8 w-8 text-gray-700" />
+          </div>
+        </div>
+        <div className="flex flex-row items-center justify-center">
+          <div ref={centerRef} className="z-10 flex size-24 items-center justify-center rounded-full bg-gradient-to-r from-[#10B981] to-[#34D399] p-3 shadow-[0_0_30px_-12px_rgba(16,185,129,0.8)]">
+            <Activity className="h-12 w-12 text-white" />
+          </div>
         </div>
         <div className="flex flex-row items-center justify-between">
-          <Circle ref={jsRef}>
-            <TechIcons.javascript />
-          </Circle>
-          <Circle ref={centerRef} className="size-20 bg-gradient-to-r from-blue-500 to-purple-600">
-            <Code className="h-10 w-10 text-white" />
-          </Circle>
-          <Circle ref={pythonRef}>
-            <TechIcons.python />
-          </Circle>
-        </div>
-        <div className="flex flex-row items-center justify-between">
-          <Circle ref={bashRef}>
-            <TechIcons.bash />
-          </Circle>
-          <Circle ref={dockerRef}>
-            <TechIcons.docker />
-          </Circle>
-          <Circle ref={gitRef}>
-            <TechIcons.git />
-          </Circle>
+          <div ref={pagoRef} className="z-10 flex size-16 items-center justify-center rounded-full border-2 border-gray-300 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]">
+            <CreditCard className="h-8 w-8 text-gray-700" />
+          </div>
+          <div ref={analyticsRef} className="z-10 flex size-16 items-center justify-center rounded-full border-2 border-[#10B981]/40 bg-white p-3 shadow-[0_0_20px_-12px_rgba(0,0,0,0.8)]">
+            <Database className="h-8 w-8 text-[#10B981]" />
+          </div>
         </div>
       </div>
 
       <AnimatedBeam
         containerRef={containerRef}
-        fromRef={reactRef}
+        fromRef={reservaRef}
         toRef={centerRef}
         curvature={-75}
         endYOffset={-10}
       />
       <AnimatedBeam
         containerRef={containerRef}
-        fromRef={jsRef}
+        fromRef={calendarioRef}
         toRef={centerRef}
+        curvature={75}
+        endYOffset={-10}
       />
       <AnimatedBeam
         containerRef={containerRef}
-        fromRef={bashRef}
+        fromRef={pagoRef}
         toRef={centerRef}
-        curvature={75}
+        curvature={-75}
         endYOffset={10}
       />
       <AnimatedBeam
         containerRef={containerRef}
-        fromRef={tsRef}
-        toRef={centerRef}
-        curvature={-75}
-        endYOffset={-10}
-        reverse
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={pythonRef}
-        toRef={centerRef}
-        reverse
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={nodeRef}
-        toRef={centerRef}
-        curvature={-75}
-        endYOffset={-10}
-        reverse
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={dockerRef}
+        fromRef={analyticsRef}
         toRef={centerRef}
         curvature={75}
         endYOffset={10}
-        reverse
-      />
-      <AnimatedBeam
-        containerRef={containerRef}
-        fromRef={gitRef}
-        toRef={centerRef}
-        reverse
       />
     </div>
   );
 }
 
-export default function HomePage() {
+// Process Steps Component
+function ProcessStepsImproved() {
+  return (
+    <div className="relative py-12">
+      <div className="text-center mb-16">
+        <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+          Cómo <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#34D399]">Funciona</span>
+        </h2>
+        <p className="text-lg max-w-3xl mx-auto font-medium text-gray-500">
+          Implementar PadelBook en tu club o centro deportivo es rápido y sencillo con estos simples pasos
+        </p>
+      </div>
+
+      <div className="max-w-4xl mx-auto">
+        <TechBeamComponent />
+      </div>
+
+      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {[
+          {
+            step: "01",
+            title: "Configura tu Club",
+            description: "Registra tu centro, configura tus pistas y horarios con nuestro intuitivo asistente guiado.",
+            icon: <Users className="w-8 h-8" />
+          },
+          {
+            step: "02",
+            title: "Personaliza tu Sistema",
+            description: "Adapta la plataforma a tus necesidades: precios, restricciones de reserva y opciones de pago.",
+            icon: <Calendar className="w-8 h-8" />
+          },
+          {
+            step: "03",
+            title: "Invita a tus Usuarios",
+            description: "Comparte el acceso con tus clientes para que puedan comenzar a reservar inmediatamente.",
+            icon: <Activity className="w-8 h-8" />
+          },
+          {
+            step: "04",
+            title: "Analiza y Optimiza",
+            description: "Visualiza los datos de ocupación y comportamiento para mejorar continuamente tu estrategia.",
+            icon: <Database className="w-8 h-8" />
+          }
+        ].map((item, idx) => (
+          <div
+            key={idx}
+            className="p-6 border border-gray-200 flex items-start space-x-4 transition-all duration-300 hover:shadow-md hover:border-[#10B981]"
+          >
+            <div className="flex-shrink-0 flex items-center justify-center bg-[#10B981] text-white h-12 w-12 rounded-full">
+              {item.icon}
+            </div>
+            <div>
+              <div className="flex items-center mb-2">
+                <span className="text-xs font-semibold bg-[#ecfdf5] text-[#10B981] px-2 py-1 rounded-full mr-2">PASO {item.step}</span>
+                <h3 className="text-xl font-bold">{item.title}</h3>
+              </div>
+              <p className="text-gray-600">{item.description}</p>
+
+              {idx !== 3 && (
+                <div className="mt-4 flex items-center text-sm text-gray-500">
+                  <span className="mr-2">Siguiente</span>
+                  <ArrowRight className="w-4 h-4 text-[#10B981]" />
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Tweet Card Component
+interface Testimonial {
+  name: string;
+  handle: string;
+  text: string;
+  avatarInitials: string;
+  likes: number;
+  retweets: number;
+  date: string;
+}
+
+function TweetCard({ testimonial }: { testimonial: Testimonial }) {
+  return (
+    <div className="max-w-lg w-full rounded-xl border border-gray-200 p-6 transition-all duration-300 hover:scale-105 mx-4 my-2 bg-white shadow-lg hover:border-[#10B981]">
+      {/* Tweet Header */}
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-center space-x-3">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#10B981] to-[#34D399] flex items-center justify-center">
+            <span className="text-white font-bold text-lg">{testimonial.avatarInitials}</span>
+          </div>
+          <div>
+            <h4 className="font-bold text-lg">{testimonial.name}</h4>
+            <p className="text-sm text-gray-500">{testimonial.handle}</p>
+          </div>
+        </div>
+        <svg className="w-6 h-6 text-[#10B981]" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      </div>
+
+      {/* Tweet Content */}
+      <div className="mb-4">
+        <p className="text-base leading-relaxed text-black">
+          {testimonial.text}
+        </p>
+      </div>
+
+      {/* Tweet Metadata */}
+      <div className="flex items-center justify-between text-sm text-gray-500">
+        <span>{testimonial.date}</span>
+        <div className="flex items-center space-x-6">
+          <div className="flex items-center space-x-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4zM9 6V4h6v2H9zm0 0h6v12H9V6z" />
+            </svg>
+            <span>{testimonial.retweets}</span>
+          </div>
+          <div className="flex items-center space-x-1">
+            <svg className="w-4 h-4 text-[#10B981]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span>{testimonial.likes}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Pricing Card Component
+interface PricingPlan {
+  name: string;
+  price: string;
+  billing: string;
+  desc: string;
+  features: string[];
+  cta: string;
+  popular: boolean;
+}
+
+function PricingCard({ plan }: { plan: PricingPlan }) {
+  return (
+    <div className={cn(
+      "relative rounded-2xl p-6 transition-all duration-300 hover:scale-[1.02] flex flex-col h-full",
+      plan.popular ?
+        "border-2 border-[#10B981] bg-gray-50" :
+        "border border-gray-300 bg-white",
+      "shadow-xl"
+    )}>
+      {plan.popular && (
+        <div className="absolute -top-4 left-0 right-0 flex justify-center">
+          <span className="px-4 py-1 text-sm font-bold bg-[#10B981] text-white rounded-full">
+            Más popular
+          </span>
+        </div>
+      )}
+
+      <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
+      <div className="flex items-baseline mb-4">
+        <span className="text-4xl font-bold">{plan.price}€</span>
+        <span className="text-sm ml-2 text-gray-500">/{plan.billing}</span>
+      </div>
+      <p className="text-sm mb-6 text-gray-500">{plan.desc}</p>
+
+      <div className="flex-grow">
+        <ul className="space-y-3 mb-8">
+          {plan.features.map((feature, index) => (
+            <li key={index} className="flex items-start">
+              <CheckCircle className="h-5 w-5 mr-2 flex-shrink-0 text-[#10B981]" />
+              <span className="text-sm">{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <button className={cn(
+        "w-full py-3 px-4 font-medium rounded-xl transition-all duration-300",
+        plan.popular ?
+          "bg-[#10B981] text-white hover:bg-[#0d9669]" :
+          "bg-gray-200 text-gray-800 hover:bg-gray-300",
+        "hover:shadow-lg"
+      )}>
+        {plan.cta}
+      </button>
+    </div>
+  );
+}
+
+// Navigation Bar Component
+function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <header className={cn(
+      "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
+      isScrolled ? "bg-white shadow-md" : "bg-white"
+    )}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center py-4">
+          {/* Logo */}
+          <div className="flex items-center space-x-2">
+            <div className="h-12 w-12 bg-gradient-to-b from-[#10B981] to-[#34D399] rounded-xl flex items-center justify-center text-white">
+              <Activity className="h-6 w-6" />
+            </div>
+            <span className="font-bold text-xl text-black">PadelBook</span>
+          </div>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-1">
+            {[
+              { name: "Inicio", target: "hero" },
+              { name: "Características", target: "features" },
+              { name: "Testimonios", target: "testimonials" },
+              { name: "Cómo funciona", target: "how-it-works" },
+              { name: "Precios", target: "pricing" },
+              { name: "FAQ", target: "faq" },
+              { name: "Contacto", target: "contact" }
+            ].map((item, idx) => (
+              <button
+                key={idx}
+                onClick={() => scrollToSection(item.target)}
+                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-100 text-gray-900 hover:text-[#10B981]"
+              >
+                {item.name}
+              </button>
+            ))}
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 rounded-md md:hidden text-gray-900"
+          >
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {isMobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={cn(
+        "md:hidden transition-all duration-300 overflow-hidden",
+        isMobileMenuOpen ? "max-h-80" : "max-h-0"
+      )}>
+        <div className="px-4 pt-2 pb-4 border-t border-gray-200 bg-white">
+          <nav className="flex flex-col space-y-1">
+            {[
+              { name: "Inicio", target: "hero" },
+              { name: "Características", target: "features" },
+              { name: "Testimonios", target: "testimonials" },
+              { name: "Cómo funciona", target: "how-it-works" },
+              { name: "Precios", target: "pricing" },
+              { name: "FAQ", target: "faq" },
+              { name: "Contacto", target: "contact" }
+            ].map((item, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  scrollToSection(item.target);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="px-4 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-gray-100 text-gray-900 hover:text-[#10B981]"
+              >
+                {item.name}
+              </button>
+            ))}
+          </nav>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+// Colores para las palabras rotativas y elementos de diseño
+const brandColors = {
+  primary: "#10B981",   // Verde esmeralda (color principal)
+  primaryHover: "#0d9669", // Versión más oscura para hover
+  blue: "#3B82F6",      // Azul
+  green: "#10B981",     // Verde
+  purple: "#8B5CF6",    // Púrpura
+  amber: "#F59E0B",     // Ámbar
+  gray: "#6B7280",      // Gris
+  black: "#111827",     // Negro
+  white: "#FFFFFF"      // Blanco
+};
+
+export default function PadelBookLanding() {
   const [mounted, setMounted] = useState(false);
-  const [isDark, setIsDark] = useState(false); // Cambiado a false para empezar en light mode
 
   useEffect(() => {
     setMounted(true);
+    document.title = 'PadelBook | Software de Gestión de Reservas de Pádel';
   }, []);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-  };
 
   if (!mounted) {
     return (
@@ -382,472 +1173,501 @@ export default function HomePage() {
     );
   }
 
-  const themeClasses = {
-    bg: isDark ? "bg-black" : "bg-white",
-    text: isDark ? "text-white" : "text-black",
-    textMuted: isDark ? "text-gray-300" : "text-gray-600",
-    textLight: isDark ? "text-gray-400" : "text-gray-500",
-    border: isDark ? "border-gray-700" : "border-gray-200",
-    dockBg: isDark ? "bg-black/80 backdrop-blur-md" : "bg-white/80 backdrop-blur-md",
-    buttonBg: isDark ? "bg-white/10" : "bg-black/5",
-    buttonHover: isDark ? "hover:bg-white/20" : "hover:bg-black/10",
-    card: isDark ? "bg-gray-800/50 border-gray-700" : "bg-white/50 border-gray-200 shadow-lg",
-  };
-
   return (
-    <div className={cn("min-h-screen overflow-hidden transition-all duration-500 ease-out font-['Inter','system-ui',sans-serif]", themeClasses.bg, themeClasses.text)}>
-      {/* Theme Toggle Button */}
-      <div className="fixed top-4 right-4 z-50">
-        <button
-          onClick={toggleTheme}
-          className={cn(
-            "p-3 rounded-full transition-all duration-300 backdrop-blur-sm border",
-            isDark ? "bg-gray-800/80 border-gray-700 hover:bg-gray-700/80" : "bg-white/80 border-gray-200 hover:bg-gray-50/80"
-          )}
-        >
-          {isDark ? (
-            <Sun className="h-6 w-6 text-yellow-500" />
-          ) : (
-            <Moon className="h-6 w-6 text-purple-600" />
-          )}
-        </button>
-      </div>
+    <div className="min-h-screen overflow-hidden bg-white text-black font-['Inter','system-ui',sans-serif]">
+      {/* Navbar */}
+      <Navbar />
 
-      {/* Header con Dock */}
-      <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-        <Dock className={cn("border", themeClasses.dockBg, themeClasses.border)}>
-          <DockIcon>
-            <button onClick={() => scrollToSection('hero')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
-              <Home className={cn("h-6 w-6", themeClasses.text)} />
-            </button>
-          </DockIcon>
-          <DockIcon>
-            <button onClick={() => scrollToSection('about')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
-              <User className={cn("h-6 w-6", themeClasses.text)} />
-            </button>
-          </DockIcon>
-          <DockIcon>
-            <button onClick={() => scrollToSection('projects')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
-              <Code className={cn("h-6 w-6", themeClasses.text)} />
-            </button>
-          </DockIcon>
-          <DockIcon>
-            <button onClick={() => scrollToSection('contact')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
-              <Mail className={cn("h-6 w-6", themeClasses.text)} />
-            </button>
-          </DockIcon>
-          <DockIcon>
-            <button onClick={() => scrollToSection('services')} className={cn("p-2 rounded-md transition-colors", themeClasses.buttonHover)}>
-              <Settings className={cn("h-6 w-6", themeClasses.text)} />
-            </button>
-          </DockIcon>
-        </Dock>
-      </div>
-
-      {/* Hero Section con Meteors */}
-      <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Meteors number={40} />
-        </div>
-        <div className="relative z-10 text-center px-4">
-          <BlurFade delay={0.25} inView>
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-none">
-              <span className={themeClasses.text}>Álvaro</span>{" "}
-              <AuroraText 
-                colors={["#FF0080", "#7928CA", "#0070F3", "#38bdf8", "#10B981"]} 
-                speed={1.5} 
-                className="inline-block font-black"
-              >
-                Escartí
-              </AuroraText>{" "}
-              <span className="text-6xl">👋</span>
-            </h2>
-          </BlurFade>
-          <BlurFade delay={0.5} inView>
-            <div className="mb-8">
-              <AnimatedShinyText className="text-2xl md:text-3xl font-bold tracking-tight">
-                Desarrollador Full Stack • Innovador Digital
-              </AnimatedShinyText>
+      {/* Hero Section - Properly Centered */}
+      <section id="hero" className="relative min-h-[calc(100vh-80px)] flex flex-col items-center justify-center overflow-hidden bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center flex flex-col items-center justify-center mt-20 md:mt-0">
+            <div className="h-20 w-20 bg-gradient-to-b from-[#10B981] to-[#34D399] rounded-xl flex items-center justify-center text-white mb-6">
+              <Activity className="h-10 w-10" />
             </div>
-          </BlurFade>
-          <BlurFade delay={0.75} inView>
-            <p className={cn("text-xl md:text-2xl mb-12 max-w-3xl mx-auto leading-relaxed font-medium", themeClasses.textMuted)}>
-              Creando experiencias digitales excepcionales con tecnología de vanguardia. 
-              Especializado en soluciones SaaS innovadoras y arquitectura de software escalable.
-            </p>
-          </BlurFade>
-          <BlurFade delay={1} inView>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button 
-                onClick={() => scrollToSection('projects')}
-                className={cn(
-                  "px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:scale-105",
-                  isDark ? "bg-white text-black hover:bg-gray-100" : "bg-black text-white hover:bg-gray-800"
-                )}
-              >
-                Ver Proyectos
-              </button>
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className={cn(
-                  "px-8 py-4 border rounded-full transition-all duration-300 text-lg font-medium hover:scale-105",
-                  isDark ? "border-white/20 hover:bg-white/10" : "border-black/20 hover:bg-black/5"
-                )}
-              >
-                Contactar
-              </button>
-            </div>
-          </BlurFade>
+            <BlurFade delay={0.25} inView>
+              <div className="flex justify-center mb-8 w-full">
+                <LayoutGroup>
+                  <motion.div className="flex flex-wrap justify-center items-center text-5xl md:text-7xl font-black tracking-tighter leading-none text-black w-full" layout>
+                    <motion.span
+                      layout
+                      className="inline-block w-full sm:w-auto mb-2 sm:mb-0 text-[#1C1C1C]"
+                      transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                    >
+                      Gestiona tu club de &nbsp;{" "}
+                    </motion.span>
+                    <TextRotate
+                      texts={[
+                        "pádel",
+                        "forma fácil",
+                        "manera eficiente",
+                        "modo digital",
+                        "forma inteligente",
+                      ]}
+                      mainClassName="px-2 sm:px-2 md:px-3 text-white bg-[#10B981] overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+                      staggerFrom={"last"}
+                      initial={{ y: "100%" }}
+                      animate={{ y: 0 }}
+                      exit={{ y: "-120%" }}
+                      staggerDuration={0.025}
+                      splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+                      transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                      rotationInterval={2000}
+                    />
+                  </motion.div>
+                </LayoutGroup>
+              </div>
+            </BlurFade>
+            <BlurFade delay={0.5} inView>
+              <div className="mb-6">
+                <AnimatedShinyText className="text-2xl md:text-3xl font-bold tracking-tight">
+                  El software completo para centros de pádel
+                </AnimatedShinyText>
+              </div>
+            </BlurFade>
+            <BlurFade delay={0.75} inView>
+              <p className="text-xl md:text-2xl mb-10 leading-relaxed font-medium text-gray-600">
+                Reservas online, gestión de pistas, torneos y estadísticas. Todo en una sola plataforma.
+              </p>
+            </BlurFade>
+            <BlurFade delay={1} inView>
+              <div className="flex justify-center">
+                <PulsatingButton onClick={() => scrollToSection('pricing')}>
+                  Comenzar prueba gratuita
+                </PulsatingButton>
+              </div>
+            </BlurFade>
+          </div>
         </div>
       </section>
-
-      {/* About Section */}
-      <section id="about" className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <BlurFade delay={0.25} inView>
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-                Sobre <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 font-black">mí</span>
-              </h2>
-              <BlurFade delay={0.5} inView>
-                <p className={cn("text-lg leading-relaxed mb-6 font-medium", themeClasses.textMuted)}>
-                  Soy un desarrollador apasionado por crear soluciones tecnológicas innovadoras. 
-                  Con más de 5 años de experiencia, me especializo en desarrollo full-stack, 
-                  arquitectura de software y transformación digital.
-                </p>
-              </BlurFade>
-              <BlurFade delay={0.75} inView>
-                <p className={cn("text-lg leading-relaxed font-medium", themeClasses.textMuted)}>
-                  Mi objetivo es construir productos que no solo cumplan con los requisitos técnicos, 
-                  sino que también brinden experiencias excepcionales a los usuarios y generen 
-                  un impacto positivo en el mundo.
-                </p>
-              </BlurFade>
-            </div>
-          </BlurFade>
-          <BlurFade delay={0.5} inView>
-            <div className={cn(
-              "p-6 rounded-lg border backdrop-blur-sm",
-              isDark ? "border-gray-700 bg-gray-800/50" : "border-gray-200 bg-white/50 shadow-lg"
-            )}>
-              <h3 className="text-xl font-bold mb-6 text-center">Habilidades Técnicas</h3>
-              <TechSkillsBeam />
-            </div>
-          </BlurFade>
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-20 px-4 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <ProcessStepsImproved />
         </div>
       </section>
 
       {/* Velocity Scroll Section */}
-      <section className={cn("py-20 border-y", themeClasses.border)}>
+      <section className="py-12 border-y border-gray-200 bg-white">
         <div className="overflow-hidden">
-          <VelocityScroll className={cn(
-            "text-4xl md:text-6xl font-bold",
-            isDark ? "text-white/10" : "text-black/10"
-          )}>
-            DESARROLLO • INNOVACIÓN • DISEÑO • TECNOLOGÍA • FUTURO •
+          <VelocityScroll
+            className="text-4xl md:text-6xl font-bold py-8"
+          >
+            <span className="text-gray-300">SIMPLIFICA</span> <span className="text-[#10B981]">OPTIMIZA</span> <span className="text-gray-300">DIGITALIZA</span> <span className="text-gray-300">CRECE</span> <span className="text-[#10B981]">INNOVA</span> <span className="text-gray-300">CONTROLA</span>
           </VelocityScroll>
         </div>
       </section>
 
-      {/* Experience Stats - Elegant Animation Design */}
-      <section className="py-20 px-4 relative overflow-hidden">
-        <div className="max-w-6xl mx-auto relative z-10">
-          <BlurFade delay={0.25} inView>
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-none">
-                Impacto en <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Números</span>
-              </h2>
-              <p className={cn(
-                "text-lg md:text-xl max-w-3xl mx-auto font-medium",
-                themeClasses.textMuted
-              )}>
-                Resultado de años de dedicación, pasión y compromiso con la excelencia
-              </p>
+      {/* Features Grid using BentoDemo */}
+      <section id="features" className="py-20 px-4 md:px-8 max-w-7xl mx-auto bg-white">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+            Funcionalidades Que Transforman Tu <span className="text-[#10B981]">Club</span>
+          </h2>
+          <p className="text-lg max-w-3xl mx-auto font-medium text-gray-500">
+            Herramientas avanzadas diseñadas específicamente para centros de pádel, que mejoran
+            la experiencia de jugadores y gestores 🎾
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Reservas simplificadas */}
+          <div className="bg-gray-50 rounded-xl overflow-hidden p-6 shadow-sm">
+            <h3 className="text-xl font-bold text-black mb-2">Reservas simplificadas</h3>
+            <p className="text-gray-700 mb-4">
+              Sistema intuitivo de reserva de pistas que permite a los usuarios ver disponibilidad en 
+              tiempo real y hacer reservas en segundos.
+            </p>
+            <div className="bg-white rounded-lg p-4 mb-4 relative border border-gray-100">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-sm font-medium">Mayo 2025</span>
+                <div className="flex space-x-1">
+                  <button className="w-6 h-6 flex items-center justify-center bg-gray-100 rounded-full">
+                    <ArrowRight className="w-3 h-3 transform rotate-180" />
+                  </button>
+                  <button className="w-6 h-6 flex items-center justify-center bg-gray-100 rounded-full">
+                    <ArrowRight className="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+              <div className="grid grid-cols-7 text-center text-xs text-gray-500 bg-gray-50 py-1 rounded">
+                {['L', 'M', 'X', 'J', 'V', 'S', 'D'].map((day, i) => (
+                  <div key={i}>{day}</div>
+                ))}
+              </div>
+              <div className="grid grid-cols-7 gap-1 mt-1">
+                {Array.from({ length: 10 }).map((_, i) => (
+                  <div key={i} className={`h-8 w-full rounded flex items-center justify-center text-xs 
+                    ${i === 6 ? 'bg-[#10B981]/10 text-[#10B981] font-medium border border-[#10B981]/30' : 'bg-gray-50'}`}>
+                    {6 + i}
+                  </div>
+                ))}
+              </div>
+              <div className="mt-2 bg-green-100 text-[#10B981] text-xs py-1 px-2 rounded inline-block">
+                ¡Pista 3 reservada!
+              </div>
             </div>
-          </BlurFade>
-          
-          {/* Main Stats Display */}
-          <div className="text-center mb-16">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-              <BlurFade delay={0.3} inView>
-                <div className="relative">
-                  <div className="flex items-center justify-center mb-4">
-                    <NumberTicker 
-                      value={50} 
-                      className="text-6xl md:text-7xl font-black bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent"
-                    />
-                    <span className="text-4xl md:text-5xl font-black text-blue-500 ml-1">+</span>
-                  </div>
-                  <p className="text-xl font-bold">Proyectos</p>
-                  <p className={cn("text-sm", themeClasses.textMuted)}>Completados</p>
-                  <div className="w-full h-1 bg-blue-500/20 rounded-full mt-4 overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transform -translate-x-full animate-[slideIn_2s_ease-out_forwards]" 
-                         style={{ animationDelay: '0.5s' }} />
-                  </div>
-                </div>
-              </BlurFade>
-              
-              <BlurFade delay={0.4} inView>
-                <div className="relative">
-                  <div className="flex items-center justify-center mb-4">
-                    <NumberTicker 
-                      value={12} 
-                      className="text-6xl md:text-7xl font-black bg-gradient-to-r from-green-500 to-emerald-600 bg-clip-text text-transparent"
-                    />
-                    <span className="text-4xl md:text-5xl font-black text-green-500 ml-1">+</span>
-                  </div>
-                  <p className="text-xl font-bold">Tecnologías</p>
-                  <p className={cn("text-sm", themeClasses.textMuted)}>Dominadas</p>
-                  <div className="w-full h-1 bg-green-500/20 rounded-full mt-4 overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transform -translate-x-full animate-[slideIn_2s_ease-out_forwards]" 
-                         style={{ animationDelay: '0.7s' }} />
-                  </div>
-                </div>
-              </BlurFade>
-              
-              <BlurFade delay={0.5} inView>
-                <div className="relative">
-                  <div className="flex items-center justify-center mb-4">
-                    <NumberTicker 
-                      value={100} 
-                      className="text-6xl md:text-7xl font-black bg-gradient-to-r from-purple-500 to-pink-600 bg-clip-text text-transparent"
-                    />
-                    <span className="text-4xl md:text-5xl font-black text-purple-500 ml-1">%</span>
-                  </div>
-                  <p className="text-xl font-bold">Satisfacción</p>
-                  <p className={cn("text-sm", themeClasses.textMuted)}>Cliente</p>
-                  <div className="w-full h-1 bg-purple-500/20 rounded-full mt-4 overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-r from-purple-500 to-pink-600 rounded-full transform -translate-x-full animate-[slideIn_2s_ease-out_forwards]" 
-                         style={{ animationDelay: '0.9s' }} />
-                  </div>
-                </div>
-              </BlurFade>
-              
-              <BlurFade delay={0.6} inView>
-                <div className="relative">
-                  <div className="flex items-center justify-center mb-4">
-                    <NumberTicker 
-                      value={30} 
-                      className="text-6xl md:text-7xl font-black bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent"
-                    />
-                    <span className="text-4xl md:text-5xl font-black text-orange-500 ml-1">+</span>
-                  </div>
-                  <p className="text-xl font-bold">Países</p>
-                  <p className={cn("text-sm", themeClasses.textMuted)}>Alcance Global</p>
-                  <div className="w-full h-1 bg-orange-500/20 rounded-full mt-4 overflow-hidden">
-                    <div className="w-full h-full bg-gradient-to-r from-orange-500 to-red-600 rounded-full transform -translate-x-full animate-[slideIn_2s_ease-out_forwards]" 
-                         style={{ animationDelay: '1.1s' }} />
-                  </div>
-                </div>
-              </BlurFade>
-            </div>
+            <a href="#" className="text-[#10B981] text-sm font-medium inline-flex items-center">
+              Ver demo <ArrowRight className="ml-1 h-4 w-4" />
+            </a>
           </div>
-          
-          {/* Animated Timeline */}
-          <BlurFade delay={0.8} inView>
-            <div className="relative">
-              <div className="flex justify-center items-center">
-                <div className="flex items-center space-x-4 md:space-x-8">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-full bg-blue-500 animate-pulse"></div>
-                    <span className="text-sm font-medium">2019 - Inicio</span>
+
+          {/* Gestión de torneos */}
+          <div className="bg-gray-50 rounded-xl overflow-hidden p-6 shadow-sm">
+            <h3 className="text-xl font-bold text-black mb-2">Gestión de torneos</h3>
+            <p className="text-gray-700 mb-4">
+              Organiza competiciones con facilidad. Gestiona inscripciones, emparejamientos y resultados para 
+              mantener a tus jugadores comprometidos.
+            </p>
+            <div className="bg-white rounded-lg mb-4 overflow-hidden border border-gray-100">
+              <div className="px-4 py-3 bg-[#10B981] text-white flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="text-[#10B981] text-[8px]">✓</span>
                   </div>
-                  <div className="w-16 md:w-24 h-px bg-gradient-to-r from-blue-500 to-green-500"></div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-full bg-green-500 animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                    <span className="text-sm font-medium">2021 - Expansión</span>
+                  <span className="text-xs">¡Inscripción confirmada!</span>
+                </div>
+                <div className="text-sm font-medium">24-26 Mayo</div>
+              </div>
+              <div className="px-4 py-6 flex justify-center">
+                <div className="relative">
+                  <div className="border-2 border-[#10B981] rounded-lg px-3 py-2 text-center text-sm bg-green-50 w-24">
+                    <div className="font-bold">Final</div>
+                    <div className="text-xs text-gray-500">26 Mayo</div>
                   </div>
-                  <div className="w-16 md:w-24 h-px bg-gradient-to-r from-green-500 to-purple-500"></div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-full bg-purple-500 animate-pulse" style={{ animationDelay: '1s' }}></div>
-                    <span className="text-sm font-medium">2023 - Innovación</span>
-                  </div>
-                  <div className="w-16 md:w-24 h-px bg-gradient-to-r from-purple-500 to-orange-500"></div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 rounded-full bg-orange-500 animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-                    <span className="text-sm font-medium">2025 - Presente</span>
+                  <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-full flex items-center">
+                    <div className="h-0.5 w-6 bg-gray-300"></div>
+                    <div className="border border-gray-300 rounded-lg px-2 py-1 text-center text-xs bg-white mr-3">
+                      <div>Semi 2</div>
+                      <div className="text-[10px] text-gray-500">25 Mayo</div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <div className="px-4 py-3 border-t border-gray-100 bg-gray-50 flex justify-between items-center">
+                <div>
+                  <div className="text-xs text-gray-500">Precio de inscripción</div>
+                  <div className="font-medium">25€ por pareja</div>
+                </div>
+                <button className="px-3 py-1.5 bg-[#10B981] text-white text-xs font-medium rounded-lg">
+                  Inscribirme
+                </button>
+              </div>
             </div>
-          </BlurFade>
-        </div>
-        
-        <style jsx>{`
-          @keyframes slideIn {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-          }
-        `}</style>
-      </section>
+            <a href="#" className="text-[#10B981] text-sm font-medium inline-flex items-center">
+              Explorar <ArrowRight className="ml-1 h-4 w-4" />
+            </a>
+          </div>
 
-      {/* Features Grid using BentoDemo */}
-      <section id="services" className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <BlurFade delay={0.25} inView>
-            <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-              Mis <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Servicios</span>
-            </h2>
-          </BlurFade>
-          <BlurFade delay={0.5} inView>
-            <p className={cn("text-lg max-w-3xl mx-auto font-medium", themeClasses.textLight)}>
-              Ofrezco soluciones completas para llevar tu idea desde el concepto hasta la realidad, 
-              utilizando las mejores prácticas y tecnologías de vanguardia 🚀
+          {/* Análisis Avanzado */}
+          <div className="bg-gray-50 rounded-xl overflow-hidden p-6 shadow-sm">
+            <h3 className="text-xl font-bold text-black mb-2">Análisis Avanzado</h3>
+            <p className="text-gray-700 mb-4">
+              Obtén datos detallados sobre la ocupación de tus pistas, preferencias de los usuarios y tendencias 
+              para optimizar tu negocio.
             </p>
-          </BlurFade>
-        </div>
-        <BentoDemo />
-      </section>
+            <div className="bg-white rounded-lg p-4 mb-4 border border-gray-100">
+              <div className="grid grid-cols-3 gap-3 mb-4">
+                <div className="bg-gray-50 p-2 rounded border border-gray-100">
+                  <div className="text-xs text-gray-500 mb-1">Reservas</div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold">438</span>
+                    <span className="text-xs bg-[#10B981]/10 text-[#10B981] px-1 py-0.5 rounded">+24%</span>
+                  </div>
+                </div>
+                <div className="bg-gray-50 p-2 rounded border border-gray-100">
+                  <div className="text-xs text-gray-500 mb-1">Usuarios</div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold">215</span>
+                    <span className="text-xs bg-blue-100 text-blue-600 px-1 py-0.5 rounded">+12%</span>
+                  </div>
+                </div>
+                <div className="bg-gray-50 p-2 rounded border border-gray-100">
+                  <div className="text-xs text-gray-500 mb-1">Ocupación</div>
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold">76%</span>
+                    <span className="text-xs bg-[#10B981]/10 text-[#10B981] px-1 py-0.5 rounded">+8%</span>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-2 text-sm font-medium">Reservas por día</div>
+              <div className="h-16 flex items-end space-x-1 mb-1">
+                {[40, 65, 50, 90, 75, 60].map((height, idx) => (
+                  <div key={idx} className="flex-1 flex flex-col items-center">
+                    <div 
+                      className="w-full rounded-t-sm bg-[#10B981]" 
+                      style={{ height: `${height}%` }}
+                    ></div>
+                  </div>
+                ))}
+              </div>
+              <div className="grid grid-cols-6 text-[10px] text-center text-gray-400">
+                {['L', 'M', 'X', 'J', 'V', 'S'].map((day, i) => (
+                  <div key={i}>{day}</div>
+                ))}
+              </div>
+              <div className="mt-4 text-sm font-medium">Distribución por horas</div>
+            </div>
+            <a href="#" className="text-[#10B981] text-sm font-medium inline-flex items-center">
+              Ver analytics <ArrowRight className="ml-1 h-4 w-4" />
+            </a>
+          </div>
 
-      {/* Projects Section */}
-      <section id="projects" className="py-20 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <BlurFade delay={0.25} inView>
-            <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-              Proyectos <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">Destacados</span>
-            </h2>
-          </BlurFade>
-          <BlurFade delay={0.5} inView>
-            <p className={cn("text-lg mb-12 max-w-3xl mx-auto font-medium", themeClasses.textLight)}>
-              Una selección de mis proyectos más recientes y exitosos, desde aplicaciones web 
-              hasta soluciones de inteligencia artificial ✨
+          {/* App para jugadores */}
+          <div className="bg-gray-50 rounded-xl overflow-hidden p-6 shadow-sm">
+            <h3 className="text-xl font-bold text-black mb-2">App para jugadores</h3>
+            <p className="text-gray-700 mb-4">
+              Ofrece a tus clientes una experiencia premium con una app móvil intuitiva para 
+              reservas, pagos y notificaciones.
             </p>
-          </BlurFade>
-          <div className="relative h-80 overflow-hidden">
-            <ProjectsMarquee />
+            <div className="bg-white rounded-lg p-4 mb-4 flex justify-center border border-gray-100">
+              <div className="w-48 h-auto rounded-xl bg-gray-50 relative p-2">
+                <div className="bg-white rounded-lg overflow-hidden shadow-sm">
+                  <div className="h-5 bg-[#10B981] flex items-center justify-between px-3">
+                    <div className="w-8 h-1 bg-white/40 rounded-full"></div>
+                    <div className="flex space-x-1">
+                      <div className="w-1 h-1 bg-white/70 rounded-full"></div>
+                      <div className="w-1 h-1 bg-white/70 rounded-full"></div>
+                    </div>
+                  </div>
+                  <div className="p-2 space-y-2">
+                    <div className="text-[8px] bg-gray-100 text-center py-1 rounded">Hoy, 19 de Mayo</div>
+                    <div className="flex justify-between text-[8px]">
+                      <div className="font-medium">Pista 4</div>
+                      <div className="bg-green-100 text-[#10B981] px-1 rounded">Disponible</div>
+                    </div>
+                    <div className="text-[7px] text-gray-500">17:00 - 18:30</div>
+                    <button className="w-full bg-[#10B981] text-white text-[8px] py-1 rounded mt-2">
+                      Reservar
+                    </button>
+                  </div>
+                </div>
+                <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[8px] bg-white px-1 py-0.5 rounded shadow border border-gray-100">
+                  Pista 4 • Disponible
+                </div>
+              </div>
+            </div>
+            <a href="#" className="text-[#10B981] text-sm font-medium inline-flex items-center">
+              Ver funciones <ArrowRight className="ml-1 h-4 w-4" />
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Testimonios Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <BlurFade delay={0.25} inView>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+                Lo que <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#34D399]">dicen</span> nuestros clientes
+              </h2>
+            </BlurFade>
+            <BlurFade delay={0.5} inView>
+              <p className="text-lg mb-12 max-w-3xl mx-auto font-medium text-gray-500">
+                Descubre cómo PadelBook ha transformado la gestión de clubes en todo el país
+              </p>
+            </BlurFade>
+          </div>
+
+          <div className="flex overflow-x-auto gap-6 pb-8 scrollbar-hide">
+            {testimonials.map((testimonial, idx) => (
+              <BlurFade key={idx} delay={0.3 + idx * 0.2} inView>
+                <TweetCard testimonial={testimonial} />
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <BlurFade delay={0.25} inView>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+                Planes <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#34D399]">Sencillos</span>
+              </h2>
+            </BlurFade>
+            <BlurFade delay={0.5} inView>
+              <p className="text-lg mb-12 max-w-3xl mx-auto font-medium text-gray-500">
+                Precios transparentes que escalan con tu club. Sin sorpresas ni comisiones ocultas.
+              </p>
+            </BlurFade>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            {pricingPlans.map((plan, idx) => (
+              <BlurFade key={idx} delay={0.25 + idx * 0.2} inView>
+                <PricingCard plan={plan} />
+              </BlurFade>
+            ))}
+          </div>
+
+          <BlurFade delay={0.8} inView>
+            <div className="mt-12 text-center">
+              <p className="text-sm text-gray-500">
+                ¿Tienes necesidades específicas? <a href="#contact" className="underline text-black font-medium">Contáctanos</a> para un plan personalizado.
+              </p>
+            </div>
+          </BlurFade>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <BlurFade delay={0.25} inView>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+                Preguntas <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#34D399]">Frecuentes</span>
+              </h2>
+            </BlurFade>
+          </div>
+
+          <div className="space-y-6">
+            {[
+              {
+                question: "¿Qué necesito para empezar a usar PadelBook?",
+                answer: "Solo necesitas registrarte, configurar las pistas de tu club y comenzar a recibir reservas. No requiere ningún hardware especial."
+              },
+              {
+                question: "¿Puedo integrar PadelBook con mi sistema de pagos actual?",
+                answer: "¡Absolutamente! Nos integramos con la mayoría de pasarelas de pago populares como Stripe, PayPal y otros sistemas locales."
+              },
+              {
+                question: "¿Cómo gestionan los usuarios las cancelaciones de reservas?",
+                answer: "PadelBook permite configurar políticas de cancelación personalizadas. Puedes establecer plazos, penalizaciones o reembolsos según las necesidades de tu club."
+              },
+              {
+                question: "¿Es necesario que mis clientes descarguen una app?",
+                answer: "No es obligatorio. PadelBook funciona perfectamente desde cualquier navegador web. Sin embargo, ofrecemos una app móvil opcional que mejora la experiencia del usuario."
+              },
+              {
+                question: "¿Puedo probar PadelBook antes de pagar?",
+                answer: "Sí, ofrecemos una prueba gratuita de 14 días con todas las funcionalidades para que puedas experimentar el impacto en tu club."
+              }
+            ].map((faq, idx) => (
+              <BlurFade key={idx} delay={0.3 + idx * 0.1} inView>
+                <div className="border border-gray-200 p-6 hover:border-[#10B981] transition-all duration-300 rounded-xl bg-white shadow-sm hover:shadow-md">
+                  <h3 className="text-xl font-bold mb-3 text-black">{faq.question}</h3>
+                  <p className="text-gray-600">{faq.answer}</p>
+                </div>
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <section id="contact" className="py-20 px-4 relative bg-white-50">
+        <div className="absolute inset-0 overflow-hidden opacity-30">
+          <Meteors number={20} />
+        </div>
+
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
           <BlurFade delay={0.25} inView>
             <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
-              Lo que dicen <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">mis clientes</span>
+              Listo para <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] to-[#34D399]">Digitalizar</span> tu Club?
             </h2>
           </BlurFade>
           <BlurFade delay={0.5} inView>
-            <p className={cn("text-lg mb-12 max-w-3xl mx-auto font-medium", themeClasses.textLight)}>
-              Testimonios reales de clientes satisfechos que confían en mi trabajo 
-              para sus proyectos más importantes 🌟
+            <p className="text-lg mb-12 max-w-3xl mx-auto font-medium text-gray-600">
+              Únete a los cientos de clubes de pádel que ya están transformando su negocio con PadelBook.
+              Comienza hoy mismo y experimenta la diferencia.
             </p>
           </BlurFade>
           <BlurFade delay={0.75} inView>
             <div className="flex justify-center">
-              <div className={cn(
-                "max-w-lg w-full rounded-xl border p-6 transition-all duration-300 hover:scale-105",
-                isDark ? "bg-gray-800/50 border-gray-700" : "bg-white border-gray-200 shadow-lg"
-              )}>
-                {/* Tweet Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">CM</span>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-lg">Carlos Mendez</h4>
-                      <p className={cn("text-sm", themeClasses.textMuted)}>@carlosmendez_dev</p>
-                    </div>
-                  </div>
-                  <svg className="w-6 h-6 text-cyan-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                  </svg>
-                </div>
-                
-                {/* Tweet Content */}
-                <div className="mb-4">
-                  <p className={cn("text-base leading-relaxed", themeClasses.text)}>
-                    Álvaro transformó completamente nuestra plataforma. Su expertise en React y su atención al detalle son excepcionales. 
-                    <span className="text-cyan-500">#DesarrolloWeb #React #Portfolio</span>
-                  </p>
-                </div>
-                
-                {/* Tweet Metadata */}
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                  <span>2:47 PM • Nov 15, 2024</span>
-                  <div className="flex items-center space-x-6">
-                    <div className="flex items-center space-x-1">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 110 2h-1v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6H3a1 1 0 110-2h4zM9 6V4h6v2H9zm0 0h6v12H9V6z" />
-                      </svg>
-                      <span>24</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                      </svg>
-                      <span>156</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <PulsatingButton className="bg-[#10B981] hover:bg-[#0d9669] text-white">
+                Comenzar 14 días gratis
+              </PulsatingButton>
             </div>
           </BlurFade>
-        </div>
-      </section>
 
-      {/* Social Links */}
-      <section id="contact" className="py-20 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <BlurFade delay={0.25} inView>
-            <h2 className="text-3xl md:text-4xl font-black mb-8 tracking-tight">Conecta Conmigo</h2>
-          </BlurFade>
-          <BlurFade delay={0.5} inView>
-            <div className="flex justify-center gap-6">
-              <a 
-                href="https://github.com/escartii" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={cn(
-                  "p-4 rounded-full transition-all duration-300 hover:scale-110 border inline-block",
-                  themeClasses.card
-                )}
-              >
-                <Github className="h-8 w-8" />
-              </a>
-              <a 
-                href="https://www.linkedin.com/in/%C3%A1lvaro-escart%C3%AD-lamolda-91a652277/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={cn(
-                  "p-4 rounded-full transition-all duration-300 hover:scale-110 border inline-block",
-                  themeClasses.card
-                )}
-              >
-                <Linkedin className="h-8 w-8" />
-              </a>
-              <a 
-                href="https://x.com/escartii" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={cn(
-                  "p-4 rounded-full transition-all duration-300 hover:scale-110 border inline-block",
-                  themeClasses.card
-                )}
-              >
-                <Twitter className="h-8 w-8" />
-              </a>
-              <a 
-                href="mailto:alvaro@escartii.com" 
-                className={cn(
-                  "p-4 rounded-full transition-all duration-300 hover:scale-110 border inline-block",
-                  themeClasses.card
-                )}
-              >
-                <Mail className="h-8 w-8" />
-              </a>
+          <BlurFade delay={1} inView>
+            <div className="mt-12 max-w-lg mx-auto">
+              <div className="border border-gray-200 p-4 flex items-center hover:border-[#10B981] transition-all duration-300 bg-white rounded-lg shadow-sm">
+                <div className="flex-shrink-0 mr-4 w-12 h-12 rounded-full flex items-center justify-center bg-[#ecfdf5]">
+                  <Phone className="w-6 h-6 text-[#10B981]" />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-medium mb-1">¿Necesitas ayuda personalizada?</p>
+                  <a href="tel:+34911234567" className="text-lg font-bold text-black hover:text-[#10B981]">+34 911 234 567</a>
+                </div>
+              </div>
             </div>
           </BlurFade>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className={cn("py-12 px-4 border-t", themeClasses.border)}>
-        <div className="max-w-4xl mx-auto text-center">
-          <p className={themeClasses.textLight}>
-            © 2025 Álvaro Escartí. Construyendo el futuro, una línea de código a la vez.
-          </p>
+      <footer className="py-12 px-4 border-t border-gray-200 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div>
+              <h3 className="text-2xl font-bold mb-4 flex items-center text-black">
+                <Activity className="w-6 h-6 mr-2 text-[#10B981]" />
+                PadelBook
+              </h3>
+              <p className="text-sm mb-4 text-gray-600">
+                Revolucionando la gestión de clubes de pádel con tecnología innovadora.
+              </p>
+              <div className="flex space-x-4">
+                {[
+                  { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z"></path></svg> },
+                  { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"></path></svg> },
+                  { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.897 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.897-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"></path></svg> },
+                  { icon: <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg> }
+                ].map((social, idx) => (
+                  <a
+                    key={idx}
+                    href="#"
+                    className="p-2 rounded-full hover:bg-gray-100 text-gray-500 hover:text-[#10B981]"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4 text-black">Producto</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="#features" className="hover:underline hover:text-[#10B981]">Características</a></li>
+                <li><a href="#pricing" className="hover:underline hover:text-[#10B981]">Precios</a></li>
+                <li><a href="#" className="hover:underline hover:text-[#10B981]">Actualizaciones</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4 text-black">Recursos</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="#" className="hover:underline hover:text-[#10B981]">Blog</a></li>
+                <li><a href="#" className="hover:underline hover:text-[#10B981]">Guías</a></li>
+                <li><a href="#" className="hover:underline hover:text-[#10B981]">Centro de ayuda</a></li>
+                <li><a href="#" className="hover:underline hover:text-[#10B981]">Webinars</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold mb-4 text-black">Empresa</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="#" className="hover:underline hover:text-[#10B981]">Sobre nosotros</a></li>
+                <li><a href="#" className="hover:underline hover:text-[#10B981]">Clientes</a></li>
+                <li><a href="#contact" className="hover:underline hover:text-[#10B981]">Contacto</a></li>
+                <li><a href="#" className="hover:underline hover:text-[#10B981]">Trabaja con nosotros</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+            <p>© 2025 PadelBook. Todos los derechos reservados.</p>
+            <div className="flex flex-wrap justify-center gap-6 mt-4 md:mt-0">
+              <a href="#" className="hover:underline hover:text-[#10B981]">Términos de servicio</a>
+              <a href="#" className="hover:underline hover:text-[#10B981]">Política de privacidad</a>
+              <a href="#" className="hover:underline hover:text-[#10B981]">Cookies</a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

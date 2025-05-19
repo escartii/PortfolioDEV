@@ -4,8 +4,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'], weight: ['400','600','800'] })
 
 export const metadata = {
-  title: 'Portfolio Dev - Álvaro Escartí',
-  description: 'Portfolio personal de Álvaro Escartí, desarrollador web y diseñador UI/UX.',
+  title: 'ScanMesa',
+  description: 'Software para la gestión de mesas de un restaurante',
   icons: {
     icon: '/favicon.ico',
   }
